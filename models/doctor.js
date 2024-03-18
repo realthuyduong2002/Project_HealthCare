@@ -9,6 +9,7 @@ const DoctorSchema = new mongoose.Schema({
       ref: "prescription",
     },
   ],
+  _id: Number,
   DoctorName: {
     type: String,
     require: true,
@@ -22,7 +23,7 @@ const DoctorSchema = new mongoose.Schema({
     require: true,
   },
   Phone: {
-    type: String,
+    type: Number,
     require: true,
   },
   Specialty: {

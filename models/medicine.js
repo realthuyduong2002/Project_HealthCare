@@ -1,8 +1,9 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
 const MedicineSchema = new mongoose.Schema({
+  _id: Number,
   MedicineCost: {
     type: Number,
     require: true,

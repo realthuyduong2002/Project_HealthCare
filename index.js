@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import therapeuticRoute from "./routes/managetherapeutic.js";
+import doctorRoute from "./routes/managedoctor.js";
+import medicineRoute from "./routes/managemedicine.js";
 
 const app = express();
 dotenv.config();
@@ -21,6 +23,8 @@ app.use(express.json());
 
 // Routes
 app.use("/api", therapeuticRoute);
+app.use("/api", doctorRoute);
+app.use("/api", medicineRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello you!");
