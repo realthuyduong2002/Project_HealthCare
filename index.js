@@ -1,9 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import therapeuticRoute from "./routes/managetherapeutic.js";
-import doctorRoute from "./routes/managedoctor.js";
-import medicineRoute from "./routes/managemedicine.js";
+import doctorTherapeuticRoute from "./routes/doctormanagetherapeutic.js";
+import doctorPrescriptionRoute from "./routes/doctormanageprescription.js";
+import doctorHealthRecordRoute from "./routes/doctormanagehealthrecord.js";
+import patientBillRoute from "./routes/patientmanagebill.js";
+import doctorAppointmentRoute from "./routes/doctormanageappointment.js";
+import doctorPatientRoute from "./routes/doctormanagepatient.js";
+import patientAppointmentRoute from "./routes/patientmanageappointment.js";
 
 const app = express();
 dotenv.config();
@@ -22,9 +26,13 @@ const connect = async () => {
 app.use(express.json());
 
 // Routes
-app.use("/api", therapeuticRoute);
-app.use("/api", doctorRoute);
-app.use("/api", medicineRoute);
+app.use("/api", doctorTherapeuticRoute);
+app.use("/api", doctorPrescriptionRoute);
+app.use("/api", doctorHealthRecordRoute);
+app.use("/api", patientBillRoute);
+app.use("/api", doctorAppointmentRoute);
+app.use("/api", doctorPatientRoute);
+app.use("/api", patientAppointmentRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello you!");

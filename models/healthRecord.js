@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
+import AutoIncrementFactory from "mongoose-sequence";
+
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const { Schema } = mongoose;
 
 const HealthRecordSchema = new mongoose.Schema({
+  _id: Number,
+  PatientID: { type: Number, ref: "patient", require: true },
   HeartBeat: {
     type: Number,
     require: true,
@@ -34,4 +39,11 @@ const HealthRecordSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("healthRecord", HealthRecordSchema);
+HealthRecordSchema.plugin(AutoIncrement, {
+  id: "healthrecord_seq",
+  inc_field: "_id",
+});
+
+const HealthRecordModel = mongoose.model("HealthRecord", HealthRecordSchema);
+
+export default HealthRecordModel;

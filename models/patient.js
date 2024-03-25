@@ -1,61 +1,45 @@
 import mongoose from "mongoose";
+import AutoIncrementFactory from "mongoose-sequence";
+
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const { Schema } = mongoose;
 
-const PatientSchema = new mongoose.Schema({
-  RecordID: [{ type: mongoose.Schema.Types.ObjectId, ref: "record" }],
-  PrescriptionID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "prescription",
-    },
-  ],
-  BillId: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "bill",
-    },
-  ],
-  AppointmentID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "appointment",
-    },
-  ],
-  TherapeuticID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "therapeutic",
-    },
-  ],
+const PatientSchema = new Schema({
+  _id: Number,
   PatientName: {
     type: String,
     required: true,
   },
   Phone: {
     type: String,
-    require: true,
+    required: true,
   },
   Email: {
     type: String,
-    require: true,
+    required: true,
   },
   Address: {
     type: String,
-    require: true,
+    required: true,
   },
   Gender: {
     type: String,
-    require: true,
+    required: true,
   },
   DateOfBirth: {
     type: String,
-    require: true,
+    required: true,
   },
   CitizenIdentification: {
     type: String,
-    require: true,
+    required: true,
   },
 });
 
-export default mongoose.model("patient", PatientSchema);
+// Apply the plugin to auto-increment the _id field
+PatientSchema.plugin(AutoIncrement, { id: "patient_seq", inc_field: "_id" });
+
+const PatientModel = mongoose.model("Patient", PatientSchema);
+
+export default PatientModel;

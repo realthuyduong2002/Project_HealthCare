@@ -1,4 +1,7 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import AutoIncrementFactory from "mongoose-sequence";
+
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const { Schema } = mongoose;
 
@@ -20,6 +23,11 @@ const MedicineSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+});
+
+MedicineSchema.plugin(AutoIncrement, {
+  id: "medicine_seq",
+  inc_field: "_id",
 });
 
 export default mongoose.model("medicine", MedicineSchema);

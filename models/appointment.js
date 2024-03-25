@@ -1,26 +1,39 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
+import AutoIncrementFactory from "mongoose-sequence";
+
+const AutoIncrement = AutoIncrementFactory(mongoose);
 
 const { Schema } = mongoose;
 
 const AppointmentSchema = new mongoose.Schema({
-  BillID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "bill",
-    },
-  ],
+  _id: Number,
+  PatientID: {
+    type: Number,
+    ref: "patient",
+    required: true,
+  },
+  BillID: {
+    type: Number,
+    ref: "bill",
+    required: true,
+  },
   AppointmentDate: {
     type: Date,
-    require: true,
+    required: true,
   },
   AppointmentTime: {
     type: Date,
-    require: true,
+    required: true,
   },
   AppointmentType: {
     type: String,
-    require: true,
+    required: true,
   },
+});
+
+AppointmentSchema.plugin(AutoIncrement, {
+  id: "appointment_seq",
+  inc_field: "_id",
 });
 
 export default mongoose.model("appointment", AppointmentSchema);

@@ -1,15 +1,14 @@
 import mongoose from "mongoose";
+import AutoIncrementFactory from "mongoose-sequence";
 
 const { Schema } = mongoose;
 
 const DoctorSchema = new mongoose.Schema({
-  PrescriptionID: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "prescription",
-    },
-  ],
   _id: Number,
+  PrescriptionID: {
+    type: Number,
+    ref: "prescription",
+  },
   DoctorName: {
     type: String,
     require: true,
@@ -23,7 +22,7 @@ const DoctorSchema = new mongoose.Schema({
     require: true,
   },
   Phone: {
-    type: Number,
+    type: String,
     require: true,
   },
   Specialty: {
@@ -38,6 +37,11 @@ const DoctorSchema = new mongoose.Schema({
     type: Date,
     require: true,
   },
+});
+
+DoctorSchema.plugin(AutoIncrement, {
+  id: "doctor_seq",
+  inc_field: "_id",
 });
 
 export default mongoose.model("doctor", DoctorSchema);
