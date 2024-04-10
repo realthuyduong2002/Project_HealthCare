@@ -8,6 +8,11 @@ import patientBillRoute from "./routes/patientmanagebill.js";
 import doctorAppointmentRoute from "./routes/doctormanageappointment.js";
 import doctorPatientRoute from "./routes/doctormanagepatient.js";
 import patientAppointmentRoute from "./routes/patientmanageappointment.js";
+import patientPrescriptionRoute from "./routes/patientmanageprescription.js";
+import patientTherapeuticRoute from "./routes/patientmanagetherapeutic.js";
+import patientHealthInsuranceRoute from "./routes/patientmanageinsurance.js";
+import patientInformationRoute from "./routes/patientmanagepatient.js";
+import patientHealthRecordRoute from "./routes/patientmanagehealthrecord.js";
 
 const app = express();
 dotenv.config();
@@ -33,6 +38,11 @@ app.use("/api", patientBillRoute);
 app.use("/api", doctorAppointmentRoute);
 app.use("/api", doctorPatientRoute);
 app.use("/api", patientAppointmentRoute);
+app.use("/api", patientPrescriptionRoute);
+app.use("/api", patientTherapeuticRoute);
+app.use("/api", patientHealthInsuranceRoute);
+app.use("/api", patientInformationRoute);
+app.use("/api", patientHealthRecordRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello you!");
