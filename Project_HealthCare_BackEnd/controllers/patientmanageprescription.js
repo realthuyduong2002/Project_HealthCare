@@ -1,4 +1,4 @@
-import Prescription from "../models/prescriptions.js";
+import Prescription from "../models/prescription.js";
 import Patient from "../models/patient.js";
 
 // View all prescriptions
