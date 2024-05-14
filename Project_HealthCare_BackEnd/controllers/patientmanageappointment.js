@@ -53,6 +53,7 @@ export const addAppointment = async (req, res) => {
       AppointmentDate,
       AppointmentTime,
       AppointmentType,
+      PaymentMethod,
     } = req.body;
 
     // Check if the patient and bill exist

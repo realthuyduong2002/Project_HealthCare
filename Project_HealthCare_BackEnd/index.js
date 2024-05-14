@@ -13,6 +13,7 @@ import patientTherapeuticRoute from "./routes/patientmanagetherapeutic.js";
 import patientHealthInsuranceRoute from "./routes/patientmanageinsurance.js";
 import patientInformationRoute from "./routes/patientmanagepatient.js";
 import patientHealthRecordRoute from "./routes/patientmanagehealthrecord.js";
+import Authentication from "./routes/Authentication.js";
 
 const app = express();
 dotenv.config();
@@ -31,6 +32,7 @@ const connect = async () => {
 app.use(express.json());
 
 // Routes
+app.use("/api", Authentication);
 app.use("/api", doctorTherapeuticRoute);
 app.use("/api", doctorPrescriptionRoute);
 app.use("/api", doctorHealthRecordRoute);
@@ -43,6 +45,21 @@ app.use("/api", patientTherapeuticRoute);
 app.use("/api", patientHealthInsuranceRoute);
 app.use("/api", patientInformationRoute);
 app.use("/api", patientHealthRecordRoute);
+
+app.post("/send-api", (req, res) => {
+  const random = Math.floor(100000 + Math.random() * 900000);
+
+  const phoneNumber = req.body.phoneNumber;
+
+  const responseObject = {
+    random: random,
+  };
+
+  // Set up custom header
+  res.set("X-SMS-Sender", "Healthcare");
+
+  return res.status(200).json(responseObject);
+});
 
 app.get("/", (req, res) => {
   res.send("Hello you!");

@@ -7,18 +7,6 @@ const { Schema } = mongoose;
 
 const AccountSchema = new mongoose.Schema({
   _id: Number,
-  PatientID: {
-    type: Number,
-    ref: "patient",
-    require: true,
-  },
-
-  DoctorID: {
-    type: Number,
-    ref: "doctor",
-    require: true,
-  },
-
   PhoneNumber: {
     type: String,
     require: true,
@@ -26,6 +14,9 @@ const AccountSchema = new mongoose.Schema({
   Password: {
     type: String,
     require: true,
+  },
+  Role: {
+    type: Boolean,
   },
 });
 

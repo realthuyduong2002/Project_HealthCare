@@ -29,6 +29,10 @@ const AppointmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  PaymentMethod: {
+    type: String,
+    required: true,
+  },
 });
 
 AppointmentSchema.plugin(AutoIncrement, {
