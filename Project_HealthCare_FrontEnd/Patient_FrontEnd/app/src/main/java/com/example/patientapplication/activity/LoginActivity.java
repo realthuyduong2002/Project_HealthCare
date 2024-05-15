@@ -1,6 +1,5 @@
 package com.example.patientapplication.activity;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,8 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import com.example.patientapplication.MainActivity;
 import com.example.patientapplication.R;
 import com.example.patientapplication.model.Account;
 import com.example.patientapplication.services.AccountService;
@@ -68,9 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(LoginActivity.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
-                        startActivity(intent);
+                        if (response.code() == 404) { // Check if the response code is 404 (Not Found)
+                            // Account doesn't exist
+                            Toast.makeText(LoginActivity.this, "Account does not exist", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Other unsuccessful responses
+                            Toast.makeText(LoginActivity.this, "Login failed: " + response.message(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } catch (Exception e) {
                     Log.e("ERROR: ", e.getMessage());

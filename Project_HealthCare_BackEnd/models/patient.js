@@ -19,7 +19,15 @@ const PatientSchema = new Schema({
     type: String,
     required: true,
   },
-  Address: {
+  City: {
+    type: String,
+    required: true,
+  },
+  District: {
+    type: String,
+    required: true,
+  },
+  Ward: {
     type: String,
     required: true,
   },

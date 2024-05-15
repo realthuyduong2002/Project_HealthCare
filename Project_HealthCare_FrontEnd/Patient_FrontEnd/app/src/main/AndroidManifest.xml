@@ -22,7 +22,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PatientApplication"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.PatientInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UpdatePatientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PatientNewInformation"
+            android:exported="false" />
         <activity
             android:name=".activity.HomepageActivity"
             android:exported="false" />

@@ -3,6 +3,7 @@ package com.example.patientapplication.utils;
 
 import com.example.patientapplication.apiClient.RetrofitClient;
 import com.example.patientapplication.services.AccountService;
+import com.example.patientapplication.services.PatientService;
 
 public class API {
     private API(){};
@@ -12,5 +13,9 @@ public class API {
     public static AccountService getAccountService()
     {
         return RetrofitClient.getClient(API_URL).create(AccountService.class);
+    }
+    public static PatientService getPatientService()
+    {
+        return RetrofitClient.getClient(API_URL).create(PatientService.class);
     }
 }
