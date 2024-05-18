@@ -99,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
 
         phoneNumber = phoneNumberEditText.getText().toString();
 
-        String apiUrl = "http://192.168.1.12:8080/send-api";
+        String apiUrl = "http://192.168.1.4:8080/send-api";
 
         new Thread(new Runnable() {
             @Override

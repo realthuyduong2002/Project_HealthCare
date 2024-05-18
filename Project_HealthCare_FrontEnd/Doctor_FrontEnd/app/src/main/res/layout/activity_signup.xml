@@ -6,15 +6,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.SignupActivity">
+
+    <ImageView
+        android:id="@+id/imageHealthBoostLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/healthboost_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textHealthBoost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HealthBoost ID"
+        android:textColor="#5D948E"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/imageHealthBoostLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/textPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:text="Enter your phone number"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textHealthBoost" />
+
     <EditText
         android:id="@+id/edtPhonenumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></EditText>
+        android:layout_width="350dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/rectangular_border"
+        android:hint="0912345678"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textHealthBoost" />
 
     <Button
-        app:layout_constraintTop_toBottomOf="@+id/edtPhonenumber"
         android:id="@+id/btnGetotp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="GET OTP"></Button>
+        android:layout_width="268dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#2F326A"
+        android:text="GET OTP"
+        app:layout_constraintTop_toBottomOf="@id/edtPhonenumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
