@@ -1,5 +1,6 @@
 import Bill from "../models/bill.js";
 import Patient from "../models/patient.js";
+import Appoinment from "../models/appointment.js";
 
 //Get all bill
 export const getAllBill = async (req, res, next) => {
@@ -46,11 +47,16 @@ export const getBillByID = async (req, res, next) => {
 //Add new bill
 export const addBill = async (req, res) => {
   try {
-    const { PatientID, TotalCost, DateCreate } = req.body;
+    const { PatientID, AppointmentID, TotalCost, DateCreate } = req.body;
 
     const existingPatient = await Patient.findById(PatientID);
+    const existingAppointment = await Appoinment.findById(PrescriptionID);
+
     if (!existingPatient) {
       return res.status(404).json({ error: "Patient not found" });
+    }
+    if (!existingAppointment) {
+      return res.status(404).json({ error: "Appointment not found" });
     }
 
     const newBill = new Bill({

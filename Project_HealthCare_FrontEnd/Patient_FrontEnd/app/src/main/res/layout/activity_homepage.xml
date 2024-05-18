@@ -22,6 +22,11 @@
           android:layout_height="wrap_content"
           android:hint="View Profile"
           android:id="@+id/btnViewProfile"></Button>
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:hint="Make Appointment"
+          android:id="@+id/btnMakeAppointment"></Button>
    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

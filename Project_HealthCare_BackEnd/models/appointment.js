@@ -12,17 +12,12 @@ const AppointmentSchema = new mongoose.Schema({
     ref: "patient",
     required: true,
   },
-  BillID: {
-    type: Number,
-    ref: "bill",
-    required: true,
-  },
   AppointmentDate: {
-    type: Date,
+    type: String,
     required: true,
   },
   AppointmentTime: {
-    type: Date,
+    type: String,
     required: true,
   },
   AppointmentType: {

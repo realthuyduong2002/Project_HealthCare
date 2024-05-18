@@ -11,7 +11,7 @@ import com.example.patientapplication.R;
 
 public class HomepageActivity extends AppCompatActivity {
 
-    Button btnNewProfile, btnViewProfile;
+    Button btnNewProfile, btnViewProfile, btnMakeAppointment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,8 @@ public class HomepageActivity extends AppCompatActivity {
 
         btnViewProfile = findViewById(R.id.btnViewProfile);
         btnNewProfile = findViewById(R.id.btnNewProfile);
+        btnMakeAppointment = findViewById(R.id.btnMakeAppointment);
+
         btnViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,6 +33,13 @@ public class HomepageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomepageActivity.this, PatientNewInformation.class);
+                startActivity(intent);
+            }
+        });
+        btnMakeAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomepageActivity.this, AppointmentActivity.class);
                 startActivity(intent);
             }
         });

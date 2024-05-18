@@ -49,7 +49,6 @@ export const addAppointment = async (req, res) => {
   try {
     const {
       PatientID,
-      BillID,
       AppointmentDate,
       AppointmentTime,
       AppointmentType,
@@ -57,12 +56,8 @@ export const addAppointment = async (req, res) => {
     } = req.body;
 
     // Check if the patient and bill exist
-    const existingBill = await Bill.findById(BillID);
     const existingPatient = await Patient.findById(PatientID);
 
-    if (!existingBill) {
-      return res.status(404).json({ success: false, error: "Bill not found" });
-    }
     if (!existingPatient) {
       return res
         .status(404)
@@ -72,10 +67,10 @@ export const addAppointment = async (req, res) => {
     // Create new appointment
     const appointment = new Appointment({
       PatientID: existingPatient._id,
-      BillID: existingBill._id,
       AppointmentDate,
       AppointmentTime,
       AppointmentType,
+      PaymentMethod,
     });
 
     // Save appointment to database

@@ -4,6 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Patient {
+    @SerializedName("_id")
+    @Expose
+    private int PatientID;
     @SerializedName("PatientName")
     @Expose
     private String PatientName;
@@ -13,6 +16,15 @@ public class Patient {
     @SerializedName("Email")
     @Expose
     private String Email;
+
+    public int getPatientID() {
+        return PatientID;
+    }
+
+    public void setPatientID(int patientID) {
+        PatientID = patientID;
+    }
+
     @SerializedName("Gender")
     @Expose
     private String Gender;
@@ -114,5 +126,8 @@ public class Patient {
 
     public void setWard(String ward) {
         Ward = ward;
+    }
+    public String toString() {
+        return PatientName + "\n" + "ID: " + PatientID;
     }
 }

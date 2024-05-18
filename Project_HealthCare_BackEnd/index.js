@@ -14,6 +14,7 @@ import patientHealthInsuranceRoute from "./routes/patientmanageinsurance.js";
 import patientInformationRoute from "./routes/patientmanagepatient.js";
 import patientHealthRecordRoute from "./routes/patientmanagehealthrecord.js";
 import Authentication from "./routes/Authentication.js";
+import ManageDoctor from "./routes/managedoctor.js";
 
 const app = express();
 dotenv.config();
@@ -45,6 +46,7 @@ app.use("/api", patientTherapeuticRoute);
 app.use("/api", patientHealthInsuranceRoute);
 app.use("/api", patientInformationRoute);
 app.use("/api", patientHealthRecordRoute);
+app.use("/api", ManageDoctor);
 
 app.post("/send-api", (req, res) => {
   const random = Math.floor(100000 + Math.random() * 900000);
