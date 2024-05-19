@@ -128,6 +128,6 @@ public class Patient {
         Ward = ward;
     }
     public String toString() {
-        return PatientName + "\n" + "ID: " + PatientID;
+        return PatientName;
     }
 }

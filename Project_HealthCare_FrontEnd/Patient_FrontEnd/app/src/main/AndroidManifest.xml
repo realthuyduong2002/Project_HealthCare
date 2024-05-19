@@ -25,6 +25,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.DisplayDoctorsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChoooseSpecialtyMakeAppointmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.AppointmentActivity"
             android:exported="false" />
         <activity
@@ -50,6 +56,9 @@
             android:exported="false" />
         <activity
             android:name=".activity.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChooseDoctorMakeAppointmentActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

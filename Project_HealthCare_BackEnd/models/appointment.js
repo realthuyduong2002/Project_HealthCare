@@ -20,11 +20,20 @@ const AppointmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  AppointmentType: {
+  DoctorID: {
+    type: Number,
+    ref: "doctor",
+    required: false,
+  },
+  Speciality: {
     type: String,
     required: true,
   },
   PaymentMethod: {
+    type: String,
+    required: true,
+  },
+  Symptom: {
     type: String,
     required: true,
   },

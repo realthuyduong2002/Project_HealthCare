@@ -16,7 +16,8 @@ public class API {
         return RetrofitClient.getClient(API_URL).create(PatientService.class);
     }
 
-    public static AccountService getAccountService() {
+    public static AccountService getAccountService()
+    {
         return RetrofitClient.getClient(API_URL).create(AccountService.class);
     }
 }

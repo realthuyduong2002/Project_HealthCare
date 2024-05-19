@@ -1,8 +1,8 @@
 import express from "express";
 import Appointment from "../models/appointment.js";
-import Bill from "../models/bill.js";
 import Patient from "../models/patient.js";
 import mongoose from "mongoose";
+import Doctor from "../models/doctor.js";
 
 export const getAllAppointment = async (req, res, next) => {
   try {
@@ -51,12 +51,15 @@ export const addAppointment = async (req, res) => {
       PatientID,
       AppointmentDate,
       AppointmentTime,
-      AppointmentType,
+      DoctorID,
+      Speciality,
       PaymentMethod,
+      Symptom,
     } = req.body;
 
     // Check if the patient and bill exist
     const existingPatient = await Patient.findById(PatientID);
+    const existingDoctor = await Doctor.findById(DoctorID);
 
     if (!existingPatient) {
       return res
@@ -64,13 +67,21 @@ export const addAppointment = async (req, res) => {
         .json({ success: false, error: "Patient not found" });
     }
 
+    if (!existingDoctor) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Doctor not found" });
+    }
+
     // Create new appointment
     const appointment = new Appointment({
       PatientID: existingPatient._id,
       AppointmentDate,
       AppointmentTime,
-      AppointmentType,
+      DoctorID: existingDoctor._id,
+      Speciality,
       PaymentMethod,
+      Symptom,
     });
 
     // Save appointment to database
