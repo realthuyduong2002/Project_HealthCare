@@ -12,9 +12,4 @@ public class API {
     public static PatientService getPatientService(){
        return RetrofitClient.getClient(API_URL).create(PatientService.class);
     }
-
-    public static AccountService getAccountService()
-    {
-        return RetrofitClient.getClient(API_URL).create(AccountService.class);
-    }
 }

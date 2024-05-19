@@ -24,6 +24,9 @@
         android:theme="@style/Theme.DoctorApplication"
         tools:targetApi="31">
         <activity
+            android:name=".activity.ChooseDoctorMakeAppointmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.HomepageActivity"
             android:exported="false" />
         <activity
@@ -53,8 +56,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

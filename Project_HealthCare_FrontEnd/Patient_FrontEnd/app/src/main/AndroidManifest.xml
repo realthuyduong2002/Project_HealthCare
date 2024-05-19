@@ -52,6 +52,9 @@
             android:name=".activity.SignupActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.ChooseDoctorMakeAppointmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

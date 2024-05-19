@@ -1,10 +1,12 @@
 package com.example.patientapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,7 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
     private TextView monthYearTv;
     private RecyclerView calendarRec;
     private LocalDate selectedDate;
+    Button btnChooseDoctor;
 
     String[] time = {"07:00:00 - 08:00:00", "08:00:00 - 09:00:00", "09:00:00 - 10:00:00"};
     @Override
@@ -49,6 +52,7 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
         atcTime = findViewById(R.id.atcTime);
         monthYearTv = findViewById(R.id.monthYearTv);
         calendarRec = findViewById(R.id.rclCalendar);
+        btnChooseDoctor = findViewById(R.id.btnChooseDoctor);
 
         adapter = new PatientInformationAdapter(this, patients);
         autoCompleteTextView.setAdapter(adapter);
@@ -71,6 +75,14 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
 
         selectedDate = LocalDate.now();
         setMonthView();
+
+        btnChooseDoctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AppointmentActivity.this, ChooseDoctorMakeAppointmentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void patientList() {
