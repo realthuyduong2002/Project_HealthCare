@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,18 +32,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AppointmentActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener{
+public class AppointmentActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
 
-    AutoCompleteTextView autoCompleteTextView, atcTime;
-    ArrayList<Patient> patients = new ArrayList<>();
-    ArrayAdapter<Patient> adapter;
-    ArrayAdapter<String> adapteritem;
+    private static final int REQUEST_CODE_DOCTOR_SELECTION = 1;
+    private static final int REQUEST_CODE_SPECIALTY_SELECTION = 2;
+
+    private AutoCompleteTextView autoCompleteTextView, atcTime;
+    private ArrayList<Patient> patients = new ArrayList<>();
+    private ArrayAdapter<Patient> adapter;
+    private ArrayAdapter<String> adapteritem;
     private TextView monthYearTv;
     private RecyclerView calendarRec;
     private LocalDate selectedDate;
-    Button btnChooseDoctor;
+    private Button btnChooseDoctor, btnChooseSpecialty;
 
-    String[] time = {"07:00:00 - 08:00:00", "08:00:00 - 09:00:00", "09:00:00 - 10:00:00"};
+    private String[] time = {"07:00:00 - 08:00:00", "08:00:00 - 09:00:00", "09:00:00 - 10:00:00"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,13 +58,14 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
         monthYearTv = findViewById(R.id.monthYearTv);
         calendarRec = findViewById(R.id.rclCalendar);
         btnChooseDoctor = findViewById(R.id.btnChooseDoctor);
+        btnChooseSpecialty = findViewById(R.id.btnChooseSpecialty);
 
         adapter = new PatientInformationAdapter(this, patients);
         autoCompleteTextView.setAdapter(adapter);
         adapteritem = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, time);
         atcTime.setAdapter(adapteritem);
 
-        patientList();
+        loadPatients();
 
         autoCompleteTextView.setOnItemClickListener((adapterView, view, position, l) -> {
             Patient patient = adapter.getItem(position);
@@ -76,27 +82,28 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
         selectedDate = LocalDate.now();
         setMonthView();
 
-        btnChooseDoctor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AppointmentActivity.this, ChooseDoctorMakeAppointmentActivity.class);
-                startActivity(intent);
-            }
+        btnChooseDoctor.setOnClickListener(v -> {
+            Intent intent = new Intent(AppointmentActivity.this, ChooseDoctorMakeAppointmentActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_DOCTOR_SELECTION);
+        });
+
+        btnChooseSpecialty.setOnClickListener(v -> {
+            Intent intent = new Intent(AppointmentActivity.this, ChoooseSpecialtyMakeAppointmentActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_SPECIALTY_SELECTION);
         });
     }
 
-    private void patientList() {
+    private void loadPatients() {
         PatientService patientService = API.getPatientService();
         Call<List<Patient>> call = patientService.getPatients();
         call.enqueue(new Callback<List<Patient>>() {
             @Override
             public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
-                if (response.isSuccessful()) {
-                    List<Patient> patientList = response.body();
-                    if (patientList != null) {
-                        patients.addAll(patientList);
-                        adapter.notifyDataSetChanged();
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    patients.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(AppointmentActivity.this, "Failed to fetch patients: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -153,6 +160,19 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
         if (!dayText.equals("")) {
             String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_DOCTOR_SELECTION && resultCode == RESULT_OK && data != null) {
+            String specialty = data.getStringExtra("SPECIALTY");
+            int doctorId = data.getIntExtra("DOCTORID", -1);
+            Toast.makeText(this, "Selected Doctor ID: " + doctorId + ", Specialty: " + specialty, Toast.LENGTH_SHORT).show();
+        } else if (requestCode == REQUEST_CODE_SPECIALTY_SELECTION && resultCode == RESULT_OK && data != null) {
+            String specialty = data.getStringExtra("SPECIALTY");
+            Toast.makeText(this, "Selected Specialty: " + specialty, Toast.LENGTH_SHORT).show();
         }
     }
 }

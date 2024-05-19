@@ -89,14 +89,52 @@ export const deleteDoctor = async (req, res, next) => {
 
 export const searchDoctor = async (req, res, next) => {
   try {
-    const keyword = req.params.keyword;
-    const searchOptions = {
-      $text: { $search: keyword },
-    };
-    const doctors = await Doctor.find(searchOptions);
-    res.status(200).json(doctors);
+    const encodedDoctorName = req.params.DoctorName;
+
+    const doctorName = decodeURIComponent(encodedDoctorName);
+
+    const existingSpeciality = await Doctor.findOne({ DoctorName: doctorName });
+
+    if (existingSpeciality) {
+      console.log(existingSpeciality);
+      return res.status(200).json(existingSpeciality);
+    } else {
+      return res.status(404).json({ message: "Doctor not found" });
+    }
   } catch (error) {
-    console.error("Error in searchDoctor:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.log(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const findBySpecialty = async (req, res, next) => {
+  try {
+    const { Speciality } = req.params;
+    const { DoctorName, Gender, Email, Phone, WorkingDate, WorkingTime } =
+      req.body;
+
+    const doctors = await Doctor.find({ Speciality: Speciality });
+
+    if (doctors.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No doctors found with the specified specialty" });
+    }
+
+    const response = doctors.map((doctor) => ({
+      _id: doctor._id,
+      DoctorName: doctor.DoctorName,
+      Gender: doctor.Gender,
+      Email: doctor.Email,
+      Phone: doctor.Phone,
+      Speciality: doctor.Speciality,
+      WorkingDate,
+      WorkingTime,
+    }));
+
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
