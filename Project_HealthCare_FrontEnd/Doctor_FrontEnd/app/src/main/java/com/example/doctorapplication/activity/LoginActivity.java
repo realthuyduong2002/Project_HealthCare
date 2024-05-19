@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.doctorapplication.MainActivity;
 import com.example.doctorapplication.R;
 import com.example.doctorapplication.model.Account;
 import com.example.doctorapplication.services.AccountService;

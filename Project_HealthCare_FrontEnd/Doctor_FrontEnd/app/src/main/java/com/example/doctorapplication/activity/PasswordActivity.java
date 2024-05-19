@@ -62,7 +62,6 @@ public class PasswordActivity extends AppCompatActivity {
     }
 
 
-
     private void register(Account account) {
         AccountService accountService = API.getAccountService();
         Call<Account> call = accountService.Register(account);

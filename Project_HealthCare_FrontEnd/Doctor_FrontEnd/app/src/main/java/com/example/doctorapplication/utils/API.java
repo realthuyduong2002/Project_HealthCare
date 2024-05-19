@@ -5,16 +5,18 @@ import com.example.doctorapplication.services.AccountService;
 import com.example.doctorapplication.services.PatientService;
 
 public class API {
-    private API(){};
-
-    public static final String API_URL = "http://192.168.1.13:8080/api/";
-
-    public static PatientService getPatientService(){
-       return RetrofitClient.getClient(API_URL).create(PatientService.class);
+    private API() {
     }
 
-    public static AccountService getAccountService()
-    {
+    ;
+
+    public static final String API_URL = "http://192.168.1.4:8080/api/";
+
+    public static PatientService getPatientService() {
+        return RetrofitClient.getClient(API_URL).create(PatientService.class);
+    }
+
+    public static AccountService getAccountService() {
         return RetrofitClient.getClient(API_URL).create(AccountService.class);
     }
 }

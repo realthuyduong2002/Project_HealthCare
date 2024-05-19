@@ -53,12 +53,12 @@ public class HomepageActivity extends AppCompatActivity {
         imageManageTherapeutic = (ImageButton) findViewById(R.id.imageManageTherapeutic);
 
         //Button
-        ButtonPersonalInformation = (Button)findViewById(R.id.ButtonPersonalInformation);
-        ButtonAppointment = (Button)findViewById(R.id.ButtonAppointment);
-        ButtonPatientInformation = (Button)findViewById(R.id.ButtonPatientInformation);
-        PatientHealthRecord = (Button)findViewById(R.id.PatientHealthRecord);
-        ButtonPatientPrescriptionInformation = (Button)findViewById(R.id.ButtonPatientPrescriptionInformation);
-        ButtonManageTherapeutic = (Button)findViewById(R.id.ButtonManageTherapeutic);
+        ButtonPersonalInformation = (Button) findViewById(R.id.ButtonPersonalInformation);
+        ButtonAppointment = (Button) findViewById(R.id.ButtonAppointment);
+        ButtonPatientInformation = (Button) findViewById(R.id.ButtonPatientInformation);
+        PatientHealthRecord = (Button) findViewById(R.id.PatientHealthRecord);
+        ButtonPatientPrescriptionInformation = (Button) findViewById(R.id.ButtonPatientPrescriptionInformation);
+        ButtonManageTherapeutic = (Button) findViewById(R.id.ButtonManageTherapeutic);
 
         //Intent manage patient
         firstlayoutrow.setOnClickListener(new View.OnClickListener() {

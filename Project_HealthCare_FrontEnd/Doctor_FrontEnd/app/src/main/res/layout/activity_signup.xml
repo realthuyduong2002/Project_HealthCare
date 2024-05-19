@@ -59,8 +59,8 @@
 
     <Button
         android:id="@+id/btnGetotp"
-        android:layout_width="268dp"
-        android:layout_height="40dp"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="#2F326A"
         android:text="GET OTP"

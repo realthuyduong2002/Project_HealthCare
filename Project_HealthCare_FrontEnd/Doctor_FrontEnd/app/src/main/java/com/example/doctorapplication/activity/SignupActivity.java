@@ -61,7 +61,9 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        registerReceiver(sentSmsReceiver, new IntentFilter(SMS_SENT_ACTION));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            registerReceiver(sentSmsReceiver, new IntentFilter(SMS_SENT_ACTION), Context.RECEIVER_NOT_EXPORTED);
+        }
     }
 
     @Override
@@ -99,7 +101,7 @@ public class SignupActivity extends AppCompatActivity {
 
         phoneNumber = phoneNumberEditText.getText().toString();
 
-        String apiUrl = "http://192.168.1.13:8080/send-api";
+        String apiUrl = "http://192.168.1.4:8080/send-api";
 
         new Thread(new Runnable() {
             @Override
@@ -155,10 +157,12 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void sendSMS(String phoneNumber, String message) {
-        PendingIntent sentPendingIntent = PendingIntent.getBroadcast(this, 0, new Intent(SMS_SENT_ACTION), 0);
+        PendingIntent sentPendingIntent = PendingIntent.getBroadcast(
+                this, 0, new Intent(SMS_SENT_ACTION), PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message, sentPendingIntent, null);
     }
+
 
     private final BroadcastReceiver sentSmsReceiver = new BroadcastReceiver() {
         @Override
@@ -187,7 +191,7 @@ public class SignupActivity extends AppCompatActivity {
             // Intent to launch the messaging app with the SMS conversation for the specified phone number
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("sms:" + phoneNumber));
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "otp_channel")
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -200,6 +204,7 @@ public class SignupActivity extends AppCompatActivity {
             notificationManager.notify(0, builder.build());
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,

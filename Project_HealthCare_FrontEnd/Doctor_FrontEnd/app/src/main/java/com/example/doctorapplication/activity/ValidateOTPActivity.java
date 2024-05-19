@@ -18,6 +18,7 @@ public class ValidateOTPActivity extends AppCompatActivity {
     EditText edtValidateOTP;
     Button btnValidateOTP;
     String confirmOTP = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class ValidateOTPActivity extends AppCompatActivity {
         Log.d("PHONENUMBER", receivedPhoneNumber);
 
         edtValidateOTP = findViewById(R.id.edtValidateOTP);
-        btnValidateOTP  = findViewById(R.id.btnValidateOTP);
+        btnValidateOTP = findViewById(R.id.btnValidateOTP);
 
         btnValidateOTP.setOnClickListener(new View.OnClickListener() {
             @Override
