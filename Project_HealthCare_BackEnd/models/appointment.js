@@ -29,13 +29,14 @@ const AppointmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  PaymentMethod: {
-    type: String,
-    required: true,
-  },
   Symptom: {
     type: String,
     required: true,
+  },
+  Status: {
+    type: String,
+    enum: ["Pending", "Reject", "Accept"], // Specify enum values
+    default: "Pending", // Set default value to Pending
   },
 });
 

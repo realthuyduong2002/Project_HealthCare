@@ -22,4 +22,7 @@ public interface AppointmentService {
             @Path("PatientID") int patientID,
             @Path("AppointmentID") int appointmentID
     );
+
+    @GET("latest/{PatientID}")
+    Call<Appointment> getLatestAppointment(@Path("PatientID") int patientID);
 }

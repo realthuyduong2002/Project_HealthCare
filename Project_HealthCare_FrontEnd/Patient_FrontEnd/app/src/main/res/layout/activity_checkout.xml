@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.Checkout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAppointmentID"
+            android:hint="Appointment ID"
+            ></TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPatientID"
+            android:hint="Patient number"
+            ></TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAppointmentDate"
+            android:hint="Appointment Date"
+            ></TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAppointmentTime"
+            android:hint="Appointment Time"
+            ></TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSpeciality"
+            android:hint="Speciality"
+            ></TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSymptom"
+            android:hint="Symptom"
+            ></TextView>
+        <Button
+            android:id="@+id/btnPaynow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pay now"></Button>
+    </LinearLayout>
+
+
+</RelativeLayout>

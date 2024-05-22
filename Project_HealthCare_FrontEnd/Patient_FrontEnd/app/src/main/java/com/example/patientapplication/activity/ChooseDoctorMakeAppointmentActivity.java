@@ -4,7 +4,6 @@ package com.example.patientapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,11 +60,11 @@ public class ChooseDoctorMakeAppointmentActivity extends AppCompatActivity {
     }
 
     public void onDoctorSelected(Doctor doctor) {
-        Intent intent = new Intent(ChooseDoctorMakeAppointmentActivity.this, AppointmentActivity.class);
-        intent.putExtra("DoctorName", doctor.getDoctorName());
-        intent.putExtra("DoctorID", String.valueOf(doctor.getDoctorID()));
-        Log.d("DoctorID: ", String.valueOf(doctor.getDoctorID()));
-        Log.d("DoctorName: ", doctor.getDoctorName());
-        startActivity(intent);
+        Intent intent = new Intent();
+        intent.putExtra("DOCTORNAME", doctor.getDoctorName());
+        intent.putExtra("DOCTORID", String.valueOf(doctor.getDoctorID()));
+        intent.putExtra("SPECIALTY", doctor.getSpeciality());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

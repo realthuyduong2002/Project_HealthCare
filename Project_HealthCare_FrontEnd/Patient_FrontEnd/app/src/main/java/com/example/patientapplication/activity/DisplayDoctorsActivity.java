@@ -79,6 +79,7 @@ public class DisplayDoctorsActivity extends AppCompatActivity implements DoctorA
         Intent intent = new Intent(DisplayDoctorsActivity.this, AppointmentActivity.class);
         intent.putExtra("SPECIALTY", doctor.getSpeciality());
         intent.putExtra("DOCTORID", doctor.getDoctorID());
+        intent.putExtra("DOCTORNAME", doctor.getDoctorName());
         Log.d("SPECIALTY", doctor.getSpeciality());
         Log.d("DOCTORID", String.valueOf(doctor.getDoctorID()));
         setResult(DisplayDoctorsActivity.RESULT_OK, intent);

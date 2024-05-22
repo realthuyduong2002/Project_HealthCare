@@ -8,7 +8,6 @@ export const getAllAppointment = async (req, res, next) => {
   try {
     const patientId = req.params.PatientID;
     console.log("Patient ID: ", patientId);
-
     const appointments = await Appointment.find({ PatientID: patientId });
     console.log("Appointments: ", appointments);
     res.json(appointments);
@@ -53,7 +52,6 @@ export const addAppointment = async (req, res) => {
       AppointmentTime,
       DoctorID,
       Speciality,
-      PaymentMethod,
       Symptom,
     } = req.body;
 
@@ -80,7 +78,6 @@ export const addAppointment = async (req, res) => {
       AppointmentTime,
       DoctorID: existingDoctor._id,
       Speciality,
-      PaymentMethod,
       Symptom,
     });
 
@@ -93,5 +90,29 @@ export const addAppointment = async (req, res) => {
     return res
       .status(500)
       .json({ success: false, error: "Internal server error" });
+  }
+};
+
+export const getLatestAppointment = async (req, res, next) => {
+  try {
+    const patientId = req.params.PatientID;
+
+    const existingPatient = await Patient.findOne({ _id: patientId });
+    if (!existingPatient) {
+      return res.status(404).json("Patient not found");
+    }
+
+    const latestAppointment = await Appointment.findOne({
+      PatientID: patientId,
+    }).sort({ _id: -1 });
+
+    if (!latestAppointment) {
+      return res.status(404).json("No appointments found");
+    }
+
+    return res.status(200).json(latestAppointment);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };

@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Appointment {
-    @SerializedName("AppointmentID")
+    @SerializedName("_id")
     @Expose
     private int AppointmentID;
     @SerializedName("PatientID")
@@ -22,23 +22,30 @@ public class Appointment {
     @SerializedName("Speciality")
     @Expose
     private String Speciality;
-    @SerializedName("PaymentMethod")
-    @Expose
-    private String PaymentMethod;
     @SerializedName("Symptom")
     @Expose
     private String Symptom;
+    @SerializedName("Status")
+    @Expose
+    private String Status;
 
-    public Appointment(int patientID, String appointmentDate, String appointmentTime, int doctorID, String speciality, String paymentMethod, String symptom) {
+    public Appointment( int patientID, String appointmentDate, String appointmentTime, int doctorID, String speciality, String symptom, String status) {
         PatientID = patientID;
         AppointmentDate = appointmentDate;
         AppointmentTime = appointmentTime;
         DoctorID = doctorID;
         Speciality = speciality;
-        PaymentMethod = paymentMethod;
         Symptom = symptom;
+        Status = status;
     }
 
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
+    }
     public int getAppointmentID() {
         return AppointmentID;
     }
@@ -85,14 +92,6 @@ public class Appointment {
 
     public void setSpeciality(String speciality) {
         Speciality = speciality;
-    }
-
-    public String getPaymentMethod() {
-        return PaymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        PaymentMethod = paymentMethod;
     }
 
     public String getSymptom() {
