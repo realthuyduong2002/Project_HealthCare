@@ -32,6 +32,9 @@ android {
 }9
 
 dependencies {
+    implementation("com.github.smarteist:autoimageslider:1.4.0-appcompat")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.smarteist:autoimageslider:1.4.0")
     implementation("com.stripe:stripe-android:20.44.0")
     implementation("com.android.volley:volley:1.2.0")
     implementation("androidx.recyclerview:recyclerview:1.3.0")

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText edtPhoneNumber, edtPassword;
     Button btnLogin;
-    ImageButton btnClose;
+    ImageView btnClose;
     TextView tvSignup;
 
     @Override
