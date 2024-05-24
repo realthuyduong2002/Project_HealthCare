@@ -18,4 +18,6 @@ public interface PatientService {
     //Patient detail (Information)
     @GET("doctor/patient/{PatientID}")
     Call<Patient> getPatientByID(@Path("PatientID") int patientId);
+
+    Call<Patient> updatePatient(int id, Patient patient);
 }

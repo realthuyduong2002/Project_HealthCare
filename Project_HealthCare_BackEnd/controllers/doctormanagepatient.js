@@ -1,4 +1,4 @@
-import expree from "express";
+import express from "express";
 import Patient from "../models/patient.js";
 import Record from "../models/healthRecord.js";
 import Prescription from "../models/prescription.js";

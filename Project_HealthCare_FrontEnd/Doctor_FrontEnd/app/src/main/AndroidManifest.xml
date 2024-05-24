@@ -6,6 +6,7 @@
         android:name="android.hardware.telephony"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
@@ -24,9 +25,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApplication"
         tools:targetApi="31">
-        <activity
-            android:name=".activity.ChooseDoctorMakeAppointmentActivity"
-            android:exported="false" />
         <activity
             android:name=".activity.HomepageActivity"
             android:exported="false" />
@@ -47,6 +45,12 @@
             android:exported="false" />
         <activity
             android:name=".activity.DoctorManagePatientList"
+            android:exported="false" />
+        <activity
+            android:name=".activity.InsertPatientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.UpdatePatientActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

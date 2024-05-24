@@ -1,106 +1,107 @@
 package com.example.doctorapplication.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Patient {
-    @SerializedName("PatientID")
-    @Expose
-    private int PatientID;
+    @SerializedName("_id")
+    private int id;
     @SerializedName("PatientName")
-    @Expose
-    private String PatientName;
+    private String patientName;
     @SerializedName("Phone")
-    @Expose
-    private String Phone;
+    private String phone;
     @SerializedName("Email")
-    @Expose
-    private String Email;
-    @SerializedName("Address")
-    @Expose
-    private String Address;
+    private String email;
+    @SerializedName("City")
+    private String city;
+    @SerializedName("District")
+    private String district;
+    @SerializedName("Ward")
+    private String ward;
     @SerializedName("Gender")
-    @Expose
-    private String Gender;
+    private String gender;
     @SerializedName("DateOfBirth")
-    @Expose
-    private String DateOfBirth;
+    private String dateOfBirth;
     @SerializedName("CitizenIdentification")
-    @Expose
-    private String CitizenIdentification;
+    private String citizenIdentification;
 
-    public int getPatientID() {
-        return PatientID;
+    // Getters and Setters
+    public int getId() {
+        return id;
     }
 
-    public void setPatientID(int patientID) {
-        PatientID = patientID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPatientName() {
-        return PatientName;
+        return patientName;
     }
 
     public void setPatientName(String patientName) {
-        PatientName = patientName;
+        this.patientName = patientName;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
-    public String getAddress() {
-        return Address;
+    public String getCity() {
+        return city;
     }
 
-    public void setAddress(String address) {
-        Address = address;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getWard() {
+        return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(String gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
     public String getDateOfBirth() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getCitizenIdentification() {
-        return CitizenIdentification;
+        return citizenIdentification;
     }
 
     public void setCitizenIdentification(String citizenIdentification) {
-        CitizenIdentification = citizenIdentification;
-    }
-
-    public Patient(int patientID, String patientName, String phone, String email, String address, String gender, String dateOfBirth, String citizenIdentification) {
-        PatientID = patientID;
-        PatientName = patientName;
-        Phone = phone;
-        Email = email;
-        Address = address;
-        Gender = gender;
-        DateOfBirth = dateOfBirth;
-        CitizenIdentification = citizenIdentification;
+        this.citizenIdentification = citizenIdentification;
     }
 }

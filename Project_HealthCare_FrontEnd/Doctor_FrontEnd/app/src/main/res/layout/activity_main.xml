@@ -8,21 +8,46 @@
     android:background="#DFF4FD"
     tools:context=".MainActivity">
 
-
-    <TextView
-        android:id="@+id/textWelcome"
+    <LinearLayout
+        android:id="@+id/textLinearLayoutWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="Welcome to HealthBoost"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <TextView
+            android:id="@+id/textWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to "
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textWelcomeHealth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:text="Health"
+            android:textColor="#EE7777"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textWelcomeBoost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Boost"
+            android:textColor="#979BFC"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/imageHealthBoostLogo"
@@ -32,20 +57,36 @@
         android:src="@drawable/healthboost_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textWelcome" />
+        app:layout_constraintTop_toBottomOf="@id/textLinearLayoutWelcome" />
 
-    <TextView
-        android:id="@+id/textHealthBoost"
+    <LinearLayout
+        android:id="@+id/textLinearLayoutHealthBoost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="HealthBoost"
-        android:textColor="#5D948E"
-        android:textSize="20sp"
-        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageHealthBoostLogo" />
+        app:layout_constraintTop_toBottomOf="@id/imageHealthBoostLogo">
+
+        <TextView
+            android:id="@+id/textHealth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health"
+            android:textColor="#EE7777"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textBoost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Boost"
+            android:textColor="#979BFC"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnSignup"

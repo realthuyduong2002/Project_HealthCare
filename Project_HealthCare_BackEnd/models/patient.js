@@ -9,39 +9,39 @@ const PatientSchema = new Schema({
   _id: Number,
   PatientName: {
     type: String,
-    required: true,
+    required: false,
   },
   Phone: {
     type: String,
-    required: true,
+    required: false,
   },
   Email: {
     type: String,
-    required: true,
+    required: false,
   },
   City: {
     type: String,
-    required: true,
+    required: false,
   },
   District: {
     type: String,
-    required: true,
+    required: false,
   },
   Ward: {
     type: String,
-    required: true,
+    required: false,
   },
   Gender: {
     type: String,
-    required: true,
+    required: false,
   },
   DateOfBirth: {
     type: String,
-    required: true,
+    required: false,
   },
   CitizenIdentification: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
