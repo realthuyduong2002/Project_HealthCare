@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +16,12 @@ import com.example.patientapplication.R;
 
 public class ValidateOTPActivity extends AppCompatActivity {
 
+    ImageButton btnBack;
+    Button btnResend;
     EditText edtValidateOTP;
     Button btnValidateOTP;
     String confirmOTP = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +32,15 @@ public class ValidateOTPActivity extends AppCompatActivity {
         Log.d("PHONENUMBER", receivedPhoneNumber);
 
         edtValidateOTP = findViewById(R.id.edtValidateOTP);
-        btnValidateOTP  = findViewById(R.id.btnValidateOTP);
-
+        btnValidateOTP = findViewById(R.id.btnValidateOTP);
+        btnBack = findViewById(R.id.btnBack);
+        btnResend = findViewById(R.id.btnResend);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ValidateOTPActivity.this, SignupActivity.class));
+            }
+        });
         btnValidateOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

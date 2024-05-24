@@ -13,10 +13,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.patientapplication.MainActivity;
 import com.example.patientapplication.R;
 
 import org.json.JSONObject;
@@ -39,18 +43,51 @@ import java.net.URL;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private EditText phoneNumberEditText;
     private static final int PERMISSION_REQUEST_CODE = 101;
     private static final String SMS_SENT_ACTION = "SMS_SENT_ACTION";
-    private String phoneNumber;
     String OTP = "";
     String PHONENUMBER = "";
+    ImageButton btnBack;
+    TextView textView; // Declare the TextView variable
+
+    private EditText phoneNumberEditText;
+
+
+    private String phoneNumber;
+    private final BroadcastReceiver sentSmsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() != null && intent.getAction().equals(SMS_SENT_ACTION)) {
+                int resultCode = getResultCode();
+                if (resultCode == AppCompatActivity.RESULT_OK) {
+                    // SMS sent successfully, show a notification in the system's notification dropdown
+                    showNotification("SMS Sent", "Your OTP has been sent via SMS.");
+                } else {
+                    // SMS sending failed
+                    Toast.makeText(SignupActivity.this, "Failed to send SMS", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        textView = findViewById(R.id.your_text);
+        String htmlText = "By pressing “Continue”, I confirm to have read and agree to the " + "<b>" +"Term of use " +"</b>" + "&amp; the " + "<b>" + "Privacy Policy " + "</b>" + "information.";
+        textView.setText(Html.fromHtml(htmlText));
+
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
         phoneNumberEditText = findViewById(R.id.edtPhonenumber);
         Button getOtpButton = findViewById(R.id.btnGetotp);
         getOtpButton.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +135,7 @@ public class SignupActivity extends AppCompatActivity {
 
         phoneNumber = phoneNumberEditText.getText().toString();
 
-        String apiUrl = "http://192.168.1.9:8080/send-api";
+        String apiUrl = "http://172.30.126.148:8080/send-api";
 
         new Thread(new Runnable() {
             @Override
@@ -158,22 +195,6 @@ public class SignupActivity extends AppCompatActivity {
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNumber, null, message, sentPendingIntent, null);
     }
-
-    private final BroadcastReceiver sentSmsReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() != null && intent.getAction().equals(SMS_SENT_ACTION)) {
-                int resultCode = getResultCode();
-                if (resultCode == AppCompatActivity.RESULT_OK) {
-                    // SMS sent successfully, show a notification in the system's notification dropdown
-                    showNotification("SMS Sent", "Your OTP has been sent via SMS.");
-                } else {
-                    // SMS sending failed
-                    Toast.makeText(SignupActivity.this, "Failed to send SMS", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    };
 
     private void showNotification(String title, String message) {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
