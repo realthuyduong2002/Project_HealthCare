@@ -5,18 +5,109 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DFF4FD"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnSignup"
+    <LinearLayout
+        android:id="@+id/firstlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up"></Button>
-    <Button
-        android:id="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignup"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to "
+            android:textSize="26dp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health"
+            android:textColor="#82FF0C0C"
+            android:textSize="26dp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Boost"
+            android:textColor="#4A1F0CFF"
+            android:textSize="26dp"
+            android:textStyle="bold"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/secondlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"></Button>
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstlayout">
+
+
+        <ImageView
+            android:id="@+id/imageHealthBoostLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/logo_healthcare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="HealthBoost"
+            android:textColor="#5D948E"
+            android:textSize="26dp"
+            android:textStyle="bold"></TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/secondlayout">
+
+        <Button
+            android:id="@+id/btnSignup"
+            android:layout_width="249dp"
+            android:layout_height="73dp"
+            android:backgroundTint="#2F326A"
+            android:text="Sign Up"
+            android:textSize="20dp"
+            android:textStyle="bold"></Button>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="OR"
+            android:textSize="20dp"></TextView>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="249dp"
+            android:layout_height="73dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#2F326A"
+            android:text="Login"
+            android:textSize="20dp"
+            android:textStyle="bold"></Button>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
