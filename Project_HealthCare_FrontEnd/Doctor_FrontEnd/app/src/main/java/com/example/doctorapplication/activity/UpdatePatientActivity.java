@@ -1,29 +1,31 @@
 package com.example.doctorapplication.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.doctorapplication.R;
 import com.example.doctorapplication.model.Patient;
 import com.example.doctorapplication.services.PatientService;
-import com.example.doctorapplication.utils.API;
+import com.example.doctorapplication.apiClient.RetrofitClient;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UpdatePatientActivity extends AppCompatActivity {
-
-    EditText etName, etDob, etGender, etPhone, etEmail, etCity, etWard, etDistrict, etCitizenIdentification;
+    EditText etName, etDob, etPhone, etEmail, etCity, etWard, etDistrict, etCitizenIdentification;
+    RadioButton maleRadioButton, femaleRadioButton;
     Button btnUpdate;
     Patient patient;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,8 @@ public class UpdatePatientActivity extends AppCompatActivity {
 
         etName = findViewById(R.id.editName);
         etDob = findViewById(R.id.editDateOfBirth);
-        etGender = findViewById(R.id.editGender);
+        maleRadioButton = findViewById(R.id.maleRadioButton);
+        femaleRadioButton = findViewById(R.id.femaleRadioButton);
         etPhone = findViewById(R.id.editPhone);
         etEmail = findViewById(R.id.editEmail);
         etCity = findViewById(R.id.editCity);
@@ -44,7 +47,11 @@ public class UpdatePatientActivity extends AppCompatActivity {
         if (patient != null) {
             etName.setText(patient.getPatientName());
             etDob.setText(patient.getDateOfBirth());
-            etGender.setText(patient.getGender());
+            if (patient.getGender().equalsIgnoreCase("Male")) {
+                maleRadioButton.setChecked(true);
+            } else if (patient.getGender().equalsIgnoreCase("Female")) {
+                femaleRadioButton.setChecked(true);
+            }
             etPhone.setText(patient.getPhone());
             etEmail.setText(patient.getEmail());
             etCity.setText(patient.getCity());
@@ -58,7 +65,7 @@ public class UpdatePatientActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = etName.getText().toString();
                 String dob = etDob.getText().toString();
-                String gender = etGender.getText().toString();
+                String gender = maleRadioButton.isChecked() ? "Male" : "Female";
                 String phone = etPhone.getText().toString();
                 String email = etEmail.getText().toString();
                 String city = etCity.getText().toString();
@@ -69,38 +76,35 @@ public class UpdatePatientActivity extends AppCompatActivity {
                 Patient updatedPatient = new Patient(
                         patient.getId(),
                         name,
-                        dob,
-                        gender,
                         phone,
                         email,
                         city,
-                        ward,
                         district,
+                        ward,
+                        gender,
+                        dob,
                         citizenIdentification
                 );
-
                 updatePatientDetails(updatedPatient);
             }
         });
     }
 
     private void updatePatientDetails(Patient updatedPatient) {
-        String apiUrl = "http://192.168.1.4:8080/api/doctor/patient/updatePatient/" + updatedPatient.getId();
-        PatientService patientService = API.getPatientService(apiUrl);
-        Call<Patient> call = patientService.updatePatientById(updatedPatient.getId(), updatedPatient);
-
+        String apiUrl = "http://192.168.1.4:8080/api/";
+        PatientService patientService = RetrofitClient.getClient(apiUrl).create(PatientService.class);
+        Call<Patient> call = patientService.updatePatient(updatedPatient.getId(), updatedPatient);
         call.enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(UpdatePatientActivity.this, "Patient updated successfully", Toast.LENGTH_SHORT).show();
-                    // Gửi kết quả trở lại cho PatientDetail và kết thúc hoạt động hiện tại
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra("updatedPatient", updatedPatient);
+                    resultIntent.putExtra("updatedPatient", response.body());
                     setResult(Activity.RESULT_OK, resultIntent);
                     finish();
                 } else {
-                    Toast.makeText(UpdatePatientActivity.this, "Failed to update patient", Toast.LENGTH_SHORT).show();
+                    // Display appropriate error message based on the response
+                    Toast.makeText(UpdatePatientActivity.this, "Failed to update patient. Response code: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 

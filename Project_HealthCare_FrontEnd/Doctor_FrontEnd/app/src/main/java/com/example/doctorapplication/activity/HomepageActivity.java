@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.doctorapplication.R;
 
 public class HomepageActivity extends AppCompatActivity {
@@ -97,7 +99,5 @@ public class HomepageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // Add similar click listeners for other buttons and image buttons if needed
     }
 }

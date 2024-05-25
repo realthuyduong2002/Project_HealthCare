@@ -22,6 +22,4 @@ public interface PatientService {
     // Update patient
     @PUT("doctor/patient/updatePatient/{id}")
     Call<Patient> updatePatient(@Path("id") int id, @Body Patient updatedPatient);
-
-    Call<Patient> updatePatientById(int id, Patient updatedPatient);
 }

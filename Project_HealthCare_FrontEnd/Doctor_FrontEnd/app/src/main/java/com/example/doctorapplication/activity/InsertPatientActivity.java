@@ -92,7 +92,6 @@ public class InsertPatientActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private boolean isNetworkAvailable() {
@@ -105,12 +104,11 @@ public class InsertPatientActivity extends AppCompatActivity {
     }
 
     private class AddPatientTask extends AsyncTask<Patient, Void, Boolean> {
-
         private Patient[] patients;
         @Override
         protected Boolean doInBackground(Patient... patients) {
             try {
-                URL url = new URL("http://172.30.161.24:8080/api/doctor/patient/addPatient");
+                URL url = new URL("http://192.168.1.4:8080/api/doctor/patient/addPatient");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
@@ -142,7 +140,6 @@ public class InsertPatientActivity extends AppCompatActivity {
         protected void onPostExecute(Boolean success) {
             if (success) {
                 Toast.makeText(InsertPatientActivity.this, "Patient added successfully", Toast.LENGTH_SHORT).show();
-
                 // Create Intent to pass data back to PatientDetail
                 Intent intent = new Intent(InsertPatientActivity.this, PatientDetail.class);
                 // Pass data of the newly added patient to Intent

@@ -101,9 +101,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="Gender"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/genderRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -123,7 +124,7 @@
                 android:layout_marginStart="80dp"
                 android:text="Female"
                 android:textSize="18sp" />
-        </LinearLayout>
+        </RadioGroup>
     </LinearLayout>
 
     <TextView

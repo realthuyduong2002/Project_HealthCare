@@ -1,5 +1,6 @@
 package com.example.doctorapplication.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,10 +27,11 @@ import retrofit2.Response;
 
 public class PatientDetail extends AppCompatActivity {
     private static final int UPDATE_PATIENT_REQUEST_CODE = 1;
-    TextView patientIdTextView, patientNameTextView, dateOfBirthTextView, genderTextView, phoneNumberTextView, emailTextView, cityTextView, wardTextView, districtTextView;
+    TextView patientIdTextView, patientNameTextView, dateOfBirthTextView, genderTextView, phoneNumberTextView, emailTextView, citizenshipTextView, cityTextView, wardTextView, districtTextView;
     Patient patient;
     ImageView optionsMenu;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,7 @@ public class PatientDetail extends AppCompatActivity {
         genderTextView = findViewById(R.id.Gender);
         phoneNumberTextView = findViewById(R.id.PhoneNumber);
         emailTextView = findViewById(R.id.Email);
+        citizenshipTextView = findViewById(R.id.Citizenship);
         cityTextView = findViewById(R.id.City);
         wardTextView = findViewById(R.id.Ward);
         districtTextView = findViewById(R.id.District);
@@ -57,7 +60,7 @@ public class PatientDetail extends AppCompatActivity {
         // Retrieve the patient object from Intent
         int patientId = getIntent().getIntExtra("selectedPatientId", -1);
         if (patientId != -1) {
-            fetchPatientDetail(patientId); // Gọi phương thức để lấy thông tin chi tiết của bệnh nhân dựa trên ID
+            fetchPatientDetail(patientId); // Call method to get patient details based on ID
         } else {
             Log.e("PatientDetail", "Invalid patient ID");
             Toast.makeText(this, "Invalid patient ID", Toast.LENGTH_SHORT).show();
@@ -72,8 +75,9 @@ public class PatientDetail extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_update) {
-                    // Chuyển sang InsertPatientActivity và chờ kết quả trả về
+                    // Switch to InsertPatientActivity and wait for the results to return
                     Intent intent = new Intent(PatientDetail.this, UpdatePatientActivity.class);
+                    intent.putExtra("selectedPatient", patient);  // Pass the patient object to UpdatePatientActivity
                     startActivityForResult(intent, UPDATE_PATIENT_REQUEST_CODE);
                     return true;
                 }
@@ -89,6 +93,7 @@ public class PatientDetail extends AppCompatActivity {
         genderTextView.setText(patient.getGender());
         phoneNumberTextView.setText(patient.getPhone());
         emailTextView.setText(patient.getEmail());
+        citizenshipTextView.setText(patient.getCitizenIdentification());
         cityTextView.setText(patient.getCity());
         wardTextView.setText(patient.getWard());
         districtTextView.setText(patient.getDistrict());
@@ -99,15 +104,17 @@ public class PatientDetail extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == UPDATE_PATIENT_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK && data != null) {
-                // Nhận thông tin bệnh nhân đã được cập nhật từ UpdatePatientActivity
+                // Get updated patient information from UpdatePatientActivity
                 Patient updatedPatient = data.getParcelableExtra("updatedPatient");
-                // Cập nhật hiển thị thông tin mới của bệnh nhân
+                // Update displays new patient information
                 if (updatedPatient != null) {
+                    patient = updatedPatient;
                     displayPatientDetails(updatedPatient);
                 }
             }
         }
     }
+
     private void fetchPatientDetail(int patientId) {
         String apiUrl = "http://192.168.1.4:8080/api/doctor/patient/" + patientId;
         PatientService patientService = API.getPatientService(apiUrl);
