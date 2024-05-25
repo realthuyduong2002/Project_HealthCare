@@ -53,6 +53,18 @@
             android:name=".activity.UpdatePatientActivity"
             android:exported="false" />
         <activity
+            android:name=".activity.AppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.AppointmentDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DoctorDetailInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.DoctorPersonalInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -10,6 +10,7 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,8 +26,9 @@ import java.net.URL;
 
 public class InsertPatientActivity extends AppCompatActivity {
 
-    EditText editTextName, editTextDateOfBirth, editTextLocation, editTextGender, editTextPhoneNumber;
-    Button buttonSave;
+    EditText editTextName, editTextDateOfBirth, editTextCity, editTextWard, editTextDistrict, editTextPhoneNumber;
+    RadioButton maleRadioButton, femaleRadioButton;
+    Button buttonCreate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,43 +37,62 @@ public class InsertPatientActivity extends AppCompatActivity {
 
         editTextName = findViewById(R.id.editTextName);
         editTextDateOfBirth = findViewById(R.id.editTextDateOfBirth);
-        editTextLocation = findViewById(R.id.editTextLocation);
-        editTextGender = findViewById(R.id.editTextGender);
+        editTextCity = findViewById(R.id.editTextCity);
+        editTextWard = findViewById(R.id.editTextWard);
+        editTextDistrict = findViewById(R.id.editTextDistrict);
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber);
-        buttonSave = findViewById(R.id.buttonSave);
+        maleRadioButton = findViewById(R.id.maleRadioButton);
+        femaleRadioButton = findViewById(R.id.femaleRadioButton);
+        buttonCreate = findViewById(R.id.buttonCreate);
 
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isNetworkAvailable()) {
-                    // Lấy thông tin từ các trường nhập
+                    // Get information from input fields
                     String name = editTextName.getText().toString();
                     String dateOfBirth = editTextDateOfBirth.getText().toString();
-                    String location = editTextLocation.getText().toString();
-                    String gender = editTextGender.getText().toString();
+                    String city = editTextCity.getText().toString();
+                    String ward = editTextWard.getText().toString();
+                    String district = editTextDistrict.getText().toString();
                     String phoneNumber = editTextPhoneNumber.getText().toString();
+                    String gender = "";
 
-                    // Kiểm tra xem ít nhất một trường quan trọng đã được nhập hay không
-                    if (name.isEmpty() && dateOfBirth.isEmpty() && location.isEmpty() && gender.isEmpty() && phoneNumber.isEmpty()) {
+                    // Check which RadioButton is selected and assign the corresponding gender
+                    if (maleRadioButton.isChecked()) {
+                        gender = "Male";
+                    } else if (femaleRadioButton.isChecked()) {
+                        gender = "Female";
+                    } else {
+                        // If no RadioButton is selected
+                        Toast.makeText(InsertPatientActivity.this, "Please select gender", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Check if at least one important field is entered
+                    if (name.isEmpty() && dateOfBirth.isEmpty() && city.isEmpty() && ward.isEmpty() && district.isEmpty() && phoneNumber.isEmpty()) {
                         Toast.makeText(InsertPatientActivity.this, "Please enter at least one piece of information", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    // Tạo một đối tượng Patient từ các dữ liệu đã nhập
+                    // Create a Patient object from the entered data
                     Patient newPatient = new Patient();
                     newPatient.setPatientName(name);
                     newPatient.setDateOfBirth(dateOfBirth);
-                    newPatient.setDistrict(location);
+                    newPatient.setCity(city);
+                    newPatient.setWard(ward);
+                    newPatient.setDistrict(district);
                     newPatient.setGender(gender);
                     newPatient.setPhone(phoneNumber);
 
-                    // Thực hiện thêm bệnh nhân bằng AsyncTask
+                    // Add patient using AsyncTask
                     new AddPatientTask().execute(newPatient);
                 } else {
                     Toast.makeText(InsertPatientActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
     }
 
     private boolean isNetworkAvailable() {
@@ -85,10 +106,11 @@ public class InsertPatientActivity extends AppCompatActivity {
 
     private class AddPatientTask extends AsyncTask<Patient, Void, Boolean> {
 
+        private Patient[] patients;
         @Override
         protected Boolean doInBackground(Patient... patients) {
             try {
-                URL url = new URL("http://192.168.1.4:8080/api/doctor/patient/addPatient");
+                URL url = new URL("http://172.30.161.24:8080/api/doctor/patient/addPatient");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
@@ -98,6 +120,8 @@ public class InsertPatientActivity extends AppCompatActivity {
                 jsonParam.put("PatientName", patients[0].getPatientName());
                 jsonParam.put("DateOfBirth", patients[0].getDateOfBirth());
                 jsonParam.put("City", patients[0].getCity());
+                jsonParam.put("Ward", patients[0].getWard());
+                jsonParam.put("District", patients[0].getDistrict());
                 jsonParam.put("Gender", patients[0].getGender());
                 jsonParam.put("Phone", patients[0].getPhone());
 
@@ -119,12 +143,11 @@ public class InsertPatientActivity extends AppCompatActivity {
             if (success) {
                 Toast.makeText(InsertPatientActivity.this, "Patient added successfully", Toast.LENGTH_SHORT).show();
 
-                // Tạo Intent để truyền dữ liệu trở lại DoctorManagePatientList
+                // Create Intent to pass data back to PatientDetail
                 Intent intent = new Intent(InsertPatientActivity.this, PatientDetail.class);
-                // Truyền dữ liệu của bệnh nhân đã được thêm vào Intent
-                Patient[] patients = new Patient[0];
-                Patient patient = patients[0];
-                intent.putExtra("selectedPatient", (Parcelable) patient);
+                // Pass data of the newly added patient to Intent
+                Patient newPatient = patients[0]; // Access the first (and only) patient from the array
+                intent.putExtra("selectedPatient", newPatient);
                 startActivity(intent);
                 finish();
             } else {

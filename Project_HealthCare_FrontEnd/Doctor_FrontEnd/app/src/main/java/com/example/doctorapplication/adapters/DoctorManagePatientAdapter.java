@@ -2,6 +2,7 @@ package com.example.doctorapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,9 @@ public class DoctorManagePatientAdapter extends ArrayAdapter<Patient> {
                 // Start PatientDetail activity
                 Context context = getContext();
                 if (context != null) {
+                    Patient selectedPatient = patient;
                     Intent intent = new Intent(context, PatientDetail.class);
+                    intent.putExtra("selectedPatientId", selectedPatient.getId());
                     // Pass any necessary data to the intent
                     context.startActivity(intent);
                 }

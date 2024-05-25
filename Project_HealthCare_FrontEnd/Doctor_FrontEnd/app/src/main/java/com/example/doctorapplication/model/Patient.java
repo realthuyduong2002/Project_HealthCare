@@ -1,8 +1,11 @@
 package com.example.doctorapplication.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Patient {
+public class Patient implements Parcelable {
     @SerializedName("_id")
     private int id;
     @SerializedName("PatientName")
@@ -24,7 +27,66 @@ public class Patient {
     @SerializedName("CitizenIdentification")
     private String citizenIdentification;
 
-    // Getters and Setters
+    public Patient() {}
+
+    public Patient(int id, String patientName, String phone, String email, String city, String district, String ward, String gender, String dateOfBirth, String citizenIdentification) {
+        this.id = id;
+        this.patientName = patientName;
+        this.phone = phone;
+        this.email = email;
+        this.city = city;
+        this.district = district;
+        this.ward = ward;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.citizenIdentification = citizenIdentification;
+    }
+
+    protected Patient(Parcel in) {
+        id = in.readInt();
+        patientName = in.readString();
+        phone = in.readString();
+        email = in.readString();
+        city = in.readString();
+        district = in.readString();
+        ward = in.readString();
+        gender = in.readString();
+        dateOfBirth = in.readString();
+        citizenIdentification = in.readString();
+    }
+
+    public static final Creator<Patient> CREATOR = new Creator<Patient>() {
+        @Override
+        public Patient createFromParcel(Parcel in) {
+            return new Patient(in);
+        }
+
+        @Override
+        public Patient[] newArray(int size) {
+            return new Patient[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(patientName);
+        dest.writeString(phone);
+        dest.writeString(email);
+        dest.writeString(city);
+        dest.writeString(district);
+        dest.writeString(ward);
+        dest.writeString(gender);
+        dest.writeString(dateOfBirth);
+        dest.writeString(citizenIdentification);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // Getters and setters
     public int getId() {
         return id;
     }

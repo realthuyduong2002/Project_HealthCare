@@ -31,7 +31,6 @@
             android:id="@+id/textWelcomeHealth"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:text="Health"
             android:textColor="#EE7777"
             android:textSize="24sp"

@@ -2,12 +2,15 @@ package com.example.doctorapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +21,7 @@ import com.example.doctorapplication.model.Patient;
 import com.example.doctorapplication.services.PatientService;
 import com.example.doctorapplication.utils.API;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +36,7 @@ public class DoctorManagePatientList extends AppCompatActivity {
     ImageView optionsMenu;
     ListView listView;
     DoctorManagePatientAdapter adapter;
+    List<Patient> patientList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +52,29 @@ public class DoctorManagePatientList extends AppCompatActivity {
                 showPopupMenu(v);
             }
         });
-
         patientList();
+
+        listView.setOnItemClickListener((adapterView, view, position, id) -> {
+            if (adapter != null) {
+                Patient selectedPatient = adapter.getItem(position);
+                if (selectedPatient != null) {
+                    Intent intent = new Intent(DoctorManagePatientList.this, PatientDetail.class);
+                    intent.putExtra("selectedPatientId", selectedPatient.getId());
+                    startActivity(intent);
+                } else {
+                    Log.e("DoctorManagePatientList", "selectedPatient is null");
+                }
+            }
+            else {
+                Log.e("DoctorManagePatientList", "adapter is null");
+            }
+        });
+
     }
 
     private void patientList() {
-        PatientService patientService = API.getPatientService();
+        String apiUrl = "http://192.168.1.4:8080/api/doctor/patients/";
+        PatientService patientService = API.getPatientService(apiUrl);
         Call<List<Patient>> call = patientService.getPatients();
 
         call.enqueue(new Callback<List<Patient>>() {
@@ -62,15 +84,17 @@ public class DoctorManagePatientList extends AppCompatActivity {
                     List<Patient> patientList = response.body();
                     if (patientList != null) {
                         setAdapter(patientList);
+                    } else {
+                        Log.e("DoctorManagePatientList", "Patient list is null");
                     }
                 } else {
-                    // Handle error
+                    Log.e("DoctorManagePatientList", "Response code: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
-                // Handle failure
+                Log.e("API_FAILURE", "API call failed", t);
             }
         });
     }
@@ -114,3 +138,4 @@ public class DoctorManagePatientList extends AppCompatActivity {
         }
     }
 }
+
