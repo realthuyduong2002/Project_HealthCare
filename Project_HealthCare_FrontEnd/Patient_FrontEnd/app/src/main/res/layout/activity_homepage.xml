@@ -491,12 +491,14 @@
             android:orientation="vertical">
 
             <ImageView
+                android:background="#80FF0000"
                 android:id="@+id/ivHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/homepage_icon" />
 
             <TextView
+                android:textColor="#80FF0000"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Home" />
@@ -583,5 +585,4 @@
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
-
 
