@@ -10,7 +10,7 @@ import com.example.patientapplication.services.PatientService;
 public class API {
     private API(){};
 
-    public static final String API_URL = "http://192.168.195.144:8080/api/";
+    public static final String API_URL = "http://192.168.1.10:8080/api/";
 
     public static AccountService getAccountService()
     {
