@@ -23,7 +23,7 @@
             android:layout_centerVertical="true"
             android:text="Patient Information"
             android:textColor="#FB9393"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView

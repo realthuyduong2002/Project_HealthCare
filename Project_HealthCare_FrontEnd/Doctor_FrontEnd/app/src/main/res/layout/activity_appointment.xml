@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".activity.HomepageActivity">
+    android:orientation="vertical"
+    tools:context=".activity.appointment.AppointmentActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,32 +16,33 @@
 
 
         <LinearLayout
-            android:layout_gravity="start|center_vertical"
-            android:orientation="horizontal"
             android:id="@+id/informationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
             android:background="#D2F2FE"
+            android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/lnBack"
-                android:gravity="center"
                 android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:gravity="center">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/img_menu" />
+                    android:src="@drawable/back" />
             </LinearLayout>
 
             <TextView
-                android:gravity="center"
-                android:layout_gravity="center"
                 android:id="@+id/informationText"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text="Appointment"
                 android:textColor="#FB9393"
                 android:textSize="18sp"
@@ -49,9 +50,10 @@
 
             <LinearLayout
                 android:id="@+id/lnOptionsMenu"
-                android:gravity="center"
                 android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:gravity="center">
+
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -60,62 +62,40 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:background="@drawable/rectangular_border"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:id="@+id/searchLayout"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp">
-
-            <ImageView
-                android:id="@+id/searchIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/search" />
-
-            <EditText
-                android:background="@android:color/transparent"
-                android:id="@+id/searchInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Search by appointment code..."
-                android:inputType="text"
-                android:paddingStart="10dp"
-                android:paddingEnd="40dp"
-                android:textSize="15sp" />
-
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_gravity="center_vertical|start"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/img_no_result" />
-
         <TextView
-            android:layout_marginStart="10dp"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You haven't have any appointment yet."
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Appointment Date"
             android:textColor="@color/black"
-            android:textStyle="normal" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <com.applandeo.materialcalendarview.CalendarView
+            android:id="@+id/clAppointDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            app:abbreviationsBarColor="@color/white"
+            app:forwardButtonSrc="@drawable/img_calendar_left"
+            app:headerColor="@color/white"
+            app:headerLabelColor="@color/black"
+            app:previousButtonSrc="@drawable/img_calendar_right"
+            app:selectionColor="@color/color_48FF0606"
+            app:selectionLabelColor="@color/black" />
 
     </LinearLayout>
-
 </LinearLayout>

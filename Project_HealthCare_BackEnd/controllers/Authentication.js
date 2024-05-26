@@ -25,9 +25,12 @@ export const register = async (req, res, next) => {
       Role,
     });
 
-    await newAccount.save();
+    const savedAccount = await newAccount.save();
 
-    res.status(201).send("Account has been created");
+    res.status(201).json({
+      message: "Account has been created",
+      id: savedAccount._id
+    });
   } catch (error) {
     next(error);
   }

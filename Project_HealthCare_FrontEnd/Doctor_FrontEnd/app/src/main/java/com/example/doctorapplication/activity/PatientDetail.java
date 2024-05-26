@@ -38,7 +38,13 @@ public class PatientDetail extends AppCompatActivity {
         setContentView(R.layout.activity_patient_detail);
 
         optionsMenu = findViewById(R.id.optionsMenu);
-
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         optionsMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

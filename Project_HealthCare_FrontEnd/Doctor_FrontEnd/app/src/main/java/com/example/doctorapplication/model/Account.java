@@ -1,6 +1,7 @@
 package com.example.doctorapplication.model;
 
 public class Account {
+    private String id;
     private String PhoneNumber;
     private String Password;
     private boolean Role;
@@ -33,5 +34,9 @@ public class Account {
 
     public void setRole(boolean role) {
         Role = role;
+    }
+
+    public String getId() {
+        return id;
     }
 }

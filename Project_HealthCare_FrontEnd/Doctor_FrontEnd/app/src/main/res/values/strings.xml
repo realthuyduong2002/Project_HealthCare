@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Doctor Application</string>
+    <string name="txt_date_format">%s/%s/%s</string>
+    <string name="txt_time_format">%s:%s</string>
 </resources>

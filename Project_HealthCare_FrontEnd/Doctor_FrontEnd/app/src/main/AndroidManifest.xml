@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
+        android:name="App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,6 +26,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApplication"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.ChooseDoctorMakeAppointmentActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.HomepageActivity"
             android:exported="false" />
@@ -53,16 +57,25 @@
             android:name=".activity.UpdatePatientActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AppointmentActivity"
+            android:name=".activity.doctor.DoctorDetailInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AppointmentDetailActivity"
+            android:name=".activity.doctor.DoctorPersonalInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DoctorDetailInfoActivity"
+            android:name=".activity.doctor.EditDoctorInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.DoctorPersonalInfoActivity"
+            android:name=".activity.appointment.AppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.appointment.AppointmentDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.appointment.AppointmentNoResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.appointment.AppointmentResultActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
