@@ -3,10 +3,10 @@ package com.example.patientapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.patientapplication.R;
 import com.smarteist.autoimageslider.SliderView;
@@ -19,17 +19,17 @@ public class HomepageActivity extends AppCompatActivity {
     String url2 = "https://qphs.fs.quoracdn.net/main-qimg-8e203d34a6a56345f86f1a92570557ba.webp";
     String url3 = "https://bizzbucket.co/wp-content/uploads/2020/08/Life-in-The-Metro-Blog-Title-22.png";
 
-    ImageView btnMakeAppointment;
+    ImageView ivAppointment, ivUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
+        ivAppointment = findViewById(R.id.ivAppointment);
+        ivUser = findViewById(R.id.ivUser); // Assuming ivUser represents the "User" button
 
-        btnMakeAppointment = findViewById(R.id.btnMakeAppointment);
-
-        btnMakeAppointment.setOnClickListener(new View.OnClickListener() {
+        ivAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomepageActivity.this, AppointmentActivity.class);
@@ -37,36 +37,32 @@ public class HomepageActivity extends AppCompatActivity {
             }
         });
 
+        ivUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomepageActivity.this, PatientFunctionPage.class));
+            }
+        });
+
         ArrayList<SliderData> sliderDataArrayList = new ArrayList<>();
 
-        // initializing the slider view.
         SliderView sliderView = findViewById(R.id.slider);
 
-        // adding the urls inside array list
         sliderDataArrayList.add(new SliderData(url1));
         sliderDataArrayList.add(new SliderData(url2));
         sliderDataArrayList.add(new SliderData(url3));
 
-        // passing this array list inside our adapter class.
         SliderAdapter adapter = new SliderAdapter(this, sliderDataArrayList);
 
-        // below method is used to set auto cycle direction in left to
-        // right direction you can change according to requirement.
         sliderView.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);
 
-        // below method is used to
-        // setadapter to sliderview.
+
         sliderView.setSliderAdapter(adapter);
 
-        // below method is use to set
-        // scroll time in seconds.
         sliderView.setScrollTimeInSec(3);
 
-        // to set it scrollable automatically
-        // we use below method.
         sliderView.setAutoCycle(true);
 
-        // to start autocycle below method is used.
         sliderView.startAutoCycle();
     }
 }
