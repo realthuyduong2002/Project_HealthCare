@@ -7,74 +7,257 @@
     android:layout_height="match_parent"
     tools:context=".activity.PatientInformationActivity">
 
+    <!--Header-->
     <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="#3396D5ED"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/oneofheader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/menu_button" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/twoofheader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="10"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health Records"
+                android:textColor="#E6FB6D6D"
+                android:textSize="25dp"
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/threeofzerolayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="29dp"
+                android:layout_height="19dp"
+                android:src="@drawable/logo_healthcare"></ImageView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--Body-->
+    <LinearLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical"
-        >
-        <TextView
+        app:layout_constraintTop_toBottomOf="@+id/header">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Full name"
-            android:id="@+id/tvFullName"></TextView>
-        <TextView
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full name: "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Full name"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:id="@+id/tvPhoneNumber"></TextView>
-        <TextView
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number: "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone Number"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date Of Birth"
-            android:id="@+id/tvDateOfBirth"></TextView>
-        <TextView
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Of Birth: "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvDateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date Of Birth"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:id="@+id/tvEmail"></TextView>
-        <TextView
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Citizen Identification"
-            android:id="@+id/tvCCCD"></TextView>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Citizen Identification: "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvCCCD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Citizen Identification"></TextView>
+        </LinearLayout>
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="City"
-            android:id="@+id/tvCity"></TextView>
-        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"
-            android:id="@+id/rdMale"
-            ></RadioButton>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female"
-            android:id="@+id/rdFemale"
-            ></RadioButton>
-        <TextView
+            android:text="Gender: "
+            android:textStyle="bold"></TextView>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="District"
-            android:id="@+id/tvDistrict"></TextView>
-        <TextView
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rdMale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Male"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/rdFemale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Female"></RadioButton>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ward"
-            android:id="@+id/tvWard"></TextView>
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#80D9D9D9"
+                android:hint="City"
+                android:textSize="25dp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="District "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvDistrict"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#80D9D9D9"
+                android:hint="District"
+                android:textSize="25dp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ward "
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/tvWard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#80D9D9D9"
+                android:hint="Ward"
+                android:textSize="25dp"></TextView>
+        </LinearLayout>
+
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/btnUpdatePatient"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Update"
-            android:id="@+id/btnUpdatePatient"
-            ></Button>
+            android:backgroundTint="#96D5ED"></Button>
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delete"
             android:id="@+id/btnDeletePatient"
-            ></Button>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delete Profile"
+            android:backgroundTint="#96D5ED"></Button>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

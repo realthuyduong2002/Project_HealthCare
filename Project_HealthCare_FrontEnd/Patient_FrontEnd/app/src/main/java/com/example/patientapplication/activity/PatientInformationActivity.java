@@ -26,12 +26,13 @@ public class PatientInformationActivity extends AppCompatActivity {
     Button btnUpdatePatient, btnDeletePatient;
 
     Patient patient;
-
+    String patientID = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_information);
 
+        patientID = getIntent().getStringExtra("PatientID");
         tvFullName = findViewById(R.id.tvFullName);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         tvDateOfBirth = findViewById(R.id.tvDateOfBirth);
@@ -67,7 +68,7 @@ public class PatientInformationActivity extends AppCompatActivity {
 
     private void deleteProfile() {
         PatientService patientService = API.getPatientService();
-        Integer PatientID = getIntent().getIntExtra("PatientID", 1);
+        Integer PatientID = getIntent().getIntExtra("PatientID", Integer.parseInt(patientID));
         Call<Patient> call = patientService.DeletePatientProfile(PatientID);
         call.enqueue(new Callback<Patient>() {
             @Override
@@ -88,7 +89,7 @@ public class PatientInformationActivity extends AppCompatActivity {
 
     private void patientDetail() {
         PatientService patientService = API.getPatientService();
-        Integer PatientID = getIntent().getIntExtra("PatientID", 1);
+        Integer PatientID = getIntent().getIntExtra("PatientID", Integer.parseInt(patientID));
         patientService.GetPatientDetail(PatientID).enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {

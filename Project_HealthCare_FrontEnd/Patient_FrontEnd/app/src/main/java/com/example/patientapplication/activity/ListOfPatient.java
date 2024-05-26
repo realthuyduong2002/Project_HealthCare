@@ -3,14 +3,9 @@ package com.example.patientapplication.activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.patientapplication.R;
 import com.example.patientapplication.adapters.ListOfPatientAdapter;
@@ -27,10 +22,11 @@ import retrofit2.Response;
 
 public class ListOfPatient extends AppCompatActivity {
 
-    private ArrayList<Patient> patients = new ArrayList<>();
-    private ArrayAdapter<Patient> adapter;
     ListView lsPaitent;
 
+
+    private ArrayList<Patient> patients = new ArrayList<>();
+    private ArrayAdapter<Patient> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +41,17 @@ public class ListOfPatient extends AppCompatActivity {
 
     }
 
+
     private void loadPatient() {
         PatientService patientService = API.getPatientService();
         Call<List<Patient>> call = patientService.getPatients();
         call.enqueue(new Callback<List<Patient>>() {
             @Override
             public void onResponse(Call<List<Patient>> call, Response<List<Patient>> response) {
-                if(response.isSuccessful() && response.body() != null)
-                {
+                if (response.isSuccessful() && response.body() != null) {
                     patients.addAll(response.body());
                     adapter.notifyDataSetChanged();
-                }
-                else
-                {
+                } else {
                     Toast.makeText(ListOfPatient.this, "Failed to fetch patients: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }

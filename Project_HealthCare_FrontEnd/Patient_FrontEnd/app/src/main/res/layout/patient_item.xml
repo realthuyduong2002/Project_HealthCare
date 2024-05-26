@@ -33,6 +33,7 @@
               android:textSize="25dp"></TextView>
       </LinearLayout>
         <ImageButton
+            android:id="@+id/imbContinue"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:src="@drawable/back_button"
