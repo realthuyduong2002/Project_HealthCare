@@ -22,6 +22,14 @@ const DoctorSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  DateOfBirth: {
+    type: String,
+    required: true,
+  },
+  City: {
+    type: String,
+    require: false,
+  },
   Speciality: {
     type: String,
     require: true,
