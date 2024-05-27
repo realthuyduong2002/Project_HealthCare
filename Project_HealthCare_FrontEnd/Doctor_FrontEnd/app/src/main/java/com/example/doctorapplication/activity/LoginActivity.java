@@ -16,6 +16,7 @@ import com.example.doctorapplication.R;
 import com.example.doctorapplication.model.Account;
 import com.example.doctorapplication.services.AccountService;
 import com.example.doctorapplication.utils.API;
+import com.example.doctorapplication.utils.PreferenceUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Account> call, Response<Account> response) {
                 try {
                     if (response.isSuccessful()) {
+                        //save account object to get doctor information
+                        PreferenceUtils.saveUserInfo(response.body());
                         Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
                         startActivity(intent);

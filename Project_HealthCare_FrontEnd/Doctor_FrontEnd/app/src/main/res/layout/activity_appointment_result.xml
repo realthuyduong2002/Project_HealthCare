@@ -126,4 +126,8 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="2"
         tools:listitem="@layout/item_appointment_hour" />
+
+
+
+
 </LinearLayout>

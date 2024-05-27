@@ -85,7 +85,7 @@
                     android:id="@+id/tvDoctorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="Example"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -112,7 +112,7 @@
                     android:id="@+id/tvPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="0123456789"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -139,7 +139,7 @@
                     android:id="@+id/tvDateOfBirth"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="01/01/1990"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -166,7 +166,7 @@
                     android:id="@+id/tvEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="example@gmail.com"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -200,7 +200,7 @@
                     android:id="@+id/tvSpeciality"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="Dentistry"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -289,7 +289,7 @@
                     android:id="@+id/tvCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="HCM City"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -323,7 +323,7 @@
                     android:id="@+id/tvWorkingDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="01/10/2023"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -357,7 +357,7 @@
                     android:id="@+id/tvWorkingTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Pham Thi Thuy Duong"
+                    tools:text="08:00 AM"
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>

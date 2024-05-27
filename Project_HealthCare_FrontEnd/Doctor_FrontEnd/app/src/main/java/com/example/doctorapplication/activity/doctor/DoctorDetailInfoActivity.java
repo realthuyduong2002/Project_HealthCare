@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -26,6 +27,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DoctorDetailInfoActivity extends BaseActivity {
+
+    private static final String TAG = "DoctorDetailInfoActivity";
 
     LinearLayout lnBack, lnEdit;
     TextView tvDoctorName, tvPhone, tvDateOfBirth, tvEmail, tvSpeciality, tvCity, tvWorkingDate, tvWorkingTime;
@@ -71,45 +74,67 @@ public class DoctorDetailInfoActivity extends BaseActivity {
             @Override
             public void run() {
                 Account account = PreferenceUtils.getUserInfo();
-                API.getDoctorService().getDoctorByID(account.getId()).enqueue(new Callback<DoctorInfo>() {
-                    @Override
-                    public void onResponse(Call<DoctorInfo> call, Response<DoctorInfo> response) {
-                        if (response.isSuccessful()) {
-                            DoctorInfo doctorInfo = response.body();
-                            if (doctorInfo != null) {
-                                tvDoctorName.setText(doctorInfo.getDoctorName());
-                                tvPhone.setText(doctorInfo.getPhone());
-                                tvDateOfBirth.setText(doctorInfo.getDateOfBirth());
-                                tvEmail.setText(doctorInfo.getEmail());
-                                tvSpeciality.setText(doctorInfo.getSpeciality());
-                                if (doctorInfo.getGender() != null) {
-                                    if (doctorInfo.getGender().equals("Male")) {
-                                        rbMale.setChecked(true);
-                                    } else rbFemale.setChecked(true);
-                                } else {
-                                    //none check
-                                }
-                                tvCity.setText(doctorInfo.getCity());
-                                tvWorkingDate.setText(AppUtils.formatDate(doctorInfo.getWorkingDate(), "yyyy-MM-dd", "dd/MM/yyyy"));
-                                tvWorkingTime.setText(AppUtils.formatDate(doctorInfo.getWorkingTime(), "hh:mm", "hh:mm a"));
-                            }
-                        }
-                        dismissLoadingDialog();
-                    }
+                if (account != null && account.getId() != null) {
+                    String accountId = account.getId();
+                    Log.d(TAG, "Account ID: " + accountId);
 
-                    @Override
-                    public void onFailure(Call<DoctorInfo> call, Throwable t) {
-                        dismissLoadingDialog();
-                    }
-                });
+                    API.getDoctorService().getDoctorByID(accountId).enqueue(new Callback<DoctorInfo>() {
+                        @Override
+                        public void onResponse(Call<DoctorInfo> call, Response<DoctorInfo> response) {
+                            if (response.isSuccessful()) {
+                                DoctorInfo doctorInfo = response.body();
+                                if (doctorInfo != null) {
+                                    Log.d(TAG, "Doctor Info: " + doctorInfo.toString());
+                                    updateUI(doctorInfo);
+                                } else {
+                                    Log.e(TAG, "Doctor info is null");
+                                }
+                            } else {
+                                Log.e(TAG, "Response not successful: " + response.errorBody());
+                            }
+                            dismissLoadingDialog();
+                        }
+
+                        @Override
+                        public void onFailure(Call<DoctorInfo> call, Throwable t) {
+                            Log.e(TAG, "API call failed: ", t);
+                            dismissLoadingDialog();
+                        }
+                    });
+                } else {
+                    Log.e(TAG, "Account or Account ID is null");
+                    dismissLoadingDialog();
+                }
             }
         }, DELAY_LOAD_DATA);
+    }
+
+    private void updateUI(DoctorInfo doctorInfo) {
+        tvDoctorName.setText(doctorInfo.getDoctorName());
+        tvPhone.setText(doctorInfo.getPhone());
+        tvDateOfBirth.setText(doctorInfo.getDateOfBirth());
+        tvEmail.setText(doctorInfo.getEmail());
+        tvSpeciality.setText(doctorInfo.getSpeciality());
+        if (doctorInfo.getGender() != null) {
+            if (doctorInfo.getGender().equals("Male")) {
+                rbMale.setChecked(true);
+            } else {
+                rbFemale.setChecked(true);
+            }
+        } else {
+            //none check
+        }
+        tvCity.setText(doctorInfo.getCity());
+        tvWorkingDate.setText(AppUtils.formatDate(doctorInfo.getWorkingDate(), "yyyy-MM-dd", "dd/MM/yyyy"));
+        tvWorkingTime.setText(AppUtils.formatDate(doctorInfo.getWorkingTime(), "hh:mm", "hh:mm a"));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (!EventBus.getDefault().isRegistered(this)) EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.appointment.AppointmentActivity">
+    android:layout_height="match_parent"
+    tools:context=".activity.HomepageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,20 +16,19 @@
 
 
         <LinearLayout
+            android:layout_gravity="start|center_vertical"
+            android:orientation="horizontal"
             android:id="@+id/informationLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
             android:background="#D2F2FE"
-            android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/lnBack"
+                android:gravity="center"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:gravity="center">
-
+                android:layout_height="50dp">
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -37,12 +36,12 @@
             </LinearLayout>
 
             <TextView
+                android:gravity="center"
+                android:layout_gravity="center"
                 android:id="@+id/informationText"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:text="Appointment"
                 android:textColor="#FB9393"
                 android:textSize="18sp"
@@ -50,10 +49,9 @@
 
             <LinearLayout
                 android:id="@+id/lnOptionsMenu"
+                android:gravity="center"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:gravity="center">
-
+                android:layout_height="50dp">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -65,17 +63,17 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Appointment Date"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -83,19 +81,25 @@
             tools:ignore="HardcodedText" />
 
         <com.applandeo.materialcalendarview.CalendarView
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginBottom="20dp"
             android:id="@+id/clAppointDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            app:abbreviationsBarColor="@color/white"
+            app:pagesColor="@color/transparent"
+            app:abbreviationsBarColor="@color/transparent"
+            app:previousButtonSrc="@drawable/img_calendar_right"
             app:forwardButtonSrc="@drawable/img_calendar_left"
             app:headerColor="@color/white"
+            app:eventsEnabled="false"
+            app:type="many_days_picker"
             app:headerLabelColor="@color/black"
-            app:previousButtonSrc="@drawable/img_calendar_right"
+            app:selectionLabelColor="@color/black"
             app:selectionColor="@color/color_48FF0606"
-            app:selectionLabelColor="@color/black" />
+            app:selectionDisabled="true" />
 
     </LinearLayout>
+
+
 </LinearLayout>

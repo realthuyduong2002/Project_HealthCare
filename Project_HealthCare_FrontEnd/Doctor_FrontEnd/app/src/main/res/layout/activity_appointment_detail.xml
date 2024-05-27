@@ -79,7 +79,7 @@
             android:layout_marginStart="10dp"
             android:textColor="@color/black"
             android:textSize="18sp"
-            tools:text="Pham Thi Thuy Duong" />
+            tools:text="#01" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -119,7 +119,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="2" />
             </LinearLayout>
 
             <LinearLayout
@@ -146,7 +146,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="Minik" />
             </LinearLayout>
 
             <LinearLayout
@@ -173,7 +173,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="6" />
             </LinearLayout>
 
             <LinearLayout
@@ -200,7 +200,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="Example" />
             </LinearLayout>
 
             <LinearLayout
@@ -227,7 +227,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="Dentistry" />
             </LinearLayout>
 
             <LinearLayout
@@ -254,7 +254,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="20/5/2024" />
             </LinearLayout>
 
             <LinearLayout
@@ -281,7 +281,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="09:30" />
             </LinearLayout>
 
             <LinearLayout
@@ -308,7 +308,7 @@
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="Paypal" />
             </LinearLayout>
 
             <LinearLayout
@@ -343,7 +343,7 @@
                     android:singleLine="false"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    tools:text="Pham Thi Thuy Duong" />
+                    tools:text="Toothache" />
             </LinearLayout>
 
         </LinearLayout>

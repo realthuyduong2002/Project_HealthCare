@@ -4,45 +4,67 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class DoctorInfo {
+    @SerializedName("_id")
+    @Expose
+    private String id;
+
     @SerializedName("DoctorName")
     @Expose
     private String DoctorName;
+
     @SerializedName("Gender")
     @Expose
     private String Gender;
+
     @SerializedName("Email")
     @Expose
     private String Email;
+
     @SerializedName("Phone")
     @Expose
     private String Phone;
+
     @SerializedName("DateOfBirth")
     @Expose
     private String DateOfBirth;
+
     @SerializedName("City")
     @Expose
     private String City;
+
     @SerializedName("Speciality")
     @Expose
     private String Speciality;
+
     @SerializedName("WorkingDate")
     @Expose
     private String WorkingDate;
+
     @SerializedName("WorkingTime")
     @Expose
     private String WorkingTime;
 
+    // Constructor đầy đủ với tất cả các trường
+    public DoctorInfo(String id, String doctorName, String gender, String email, String phone, String dateOfBirth, String city, String speciality, String workingDate, String workingTime) {
+        this.id = id;
+        this.DoctorName = doctorName;
+        this.Gender = gender;
+        this.Email = email;
+        this.Phone = phone;
+        this.DateOfBirth = dateOfBirth;
+        this.City = city;
+        this.Speciality = speciality;
+        this.WorkingDate = workingDate;
+        this.WorkingTime = workingTime;
+    }
 
-    public DoctorInfo(String doctorName, String gender, String email, String phone, String dateOfBirth, String city, String speciality, String workingDate, String workingTime) {
-        DoctorName = doctorName;
-        Gender = gender;
-        Email = email;
-        Phone = phone;
-        DateOfBirth = dateOfBirth;
-        City = city;
-        Speciality = speciality;
-        WorkingDate = workingDate;
-        WorkingTime = workingTime;
+    // Getter và Setter
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDoctorName() {
@@ -50,7 +72,7 @@ public class DoctorInfo {
     }
 
     public void setDoctorName(String doctorName) {
-        DoctorName = doctorName;
+        this.DoctorName = doctorName;
     }
 
     public String getGender() {
@@ -58,7 +80,7 @@ public class DoctorInfo {
     }
 
     public void setGender(String gender) {
-        Gender = gender;
+        this.Gender = gender;
     }
 
     public String getEmail() {
@@ -66,7 +88,7 @@ public class DoctorInfo {
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.Email = email;
     }
 
     public String getPhone() {
@@ -74,7 +96,7 @@ public class DoctorInfo {
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.Phone = phone;
     }
 
     public String getDateOfBirth() {
@@ -82,7 +104,7 @@ public class DoctorInfo {
     }
 
     public void setDateOfBirth(String dateOfBirth) {
-        DateOfBirth = dateOfBirth;
+        this.DateOfBirth = dateOfBirth;
     }
 
     public String getCity() {
@@ -90,7 +112,7 @@ public class DoctorInfo {
     }
 
     public void setCity(String city) {
-        City = city;
+        this.City = city;
     }
 
     public String getSpeciality() {
@@ -98,7 +120,7 @@ public class DoctorInfo {
     }
 
     public void setSpeciality(String speciality) {
-        Speciality = speciality;
+        this.Speciality = speciality;
     }
 
     public String getWorkingDate() {
@@ -106,7 +128,7 @@ public class DoctorInfo {
     }
 
     public void setWorkingDate(String workingDate) {
-        WorkingDate = workingDate;
+        this.WorkingDate = workingDate;
     }
 
     public String getWorkingTime() {
@@ -114,6 +136,6 @@ public class DoctorInfo {
     }
 
     public void setWorkingTime(String workingTime) {
-        WorkingTime = workingTime;
+        this.WorkingTime = workingTime;
     }
 }

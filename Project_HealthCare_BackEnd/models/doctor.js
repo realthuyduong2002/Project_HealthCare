@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
-import AutoIncrementFactory from "mongoose-sequence";
 
-const AutoIncrement = AutoIncrementFactory(mongoose);
 const { Schema } = mongoose;
 
 const DoctorSchema = new mongoose.Schema({
-  _id: Number,
+  accountId: {
+    type: Number,
+    ref: 'Account',
+    required: true
+  },
   DoctorName: {
     type: String,
     require: true,
@@ -42,11 +44,6 @@ const DoctorSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-});
-
-DoctorSchema.plugin(AutoIncrement, {
-  id: "doctor_seq",
-  inc_field: "_id",
 });
 
 export default mongoose.model("doctor", DoctorSchema);

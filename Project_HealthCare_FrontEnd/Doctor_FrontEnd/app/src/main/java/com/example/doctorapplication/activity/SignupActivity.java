@@ -139,8 +139,8 @@ public class SignupActivity extends AppCompatActivity {
                         sendSMS(phoneNumber, "Your OTP is: " + otp);
 
                         PHONENUMBER = phoneNumber;
-
                         OTP = otp;
+
                         Intent intent = new Intent(SignupActivity.this, ValidateOTPActivity.class);
                         intent.putExtra("PHONENUMBER", PHONENUMBER);
                         intent.putExtra("OTP", OTP);
