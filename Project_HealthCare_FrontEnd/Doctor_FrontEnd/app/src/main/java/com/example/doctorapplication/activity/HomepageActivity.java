@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doctorapplication.R;
+import com.example.doctorapplication.activity.appointment.AppointmentActivity;
+import com.example.doctorapplication.activity.doctor.DoctorPersonalInfoActivity;
 
 public class HomepageActivity extends AppCompatActivity {
 

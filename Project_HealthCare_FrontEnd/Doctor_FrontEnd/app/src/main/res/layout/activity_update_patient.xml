@@ -197,5 +197,5 @@
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#2F326A"
-        android:text="Update" />
+        android:text="Save" />
 </LinearLayout>

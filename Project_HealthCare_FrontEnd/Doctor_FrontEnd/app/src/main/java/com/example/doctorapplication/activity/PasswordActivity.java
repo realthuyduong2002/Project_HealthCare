@@ -15,6 +15,7 @@ import com.example.doctorapplication.R;
 import com.example.doctorapplication.model.Account;
 import com.example.doctorapplication.services.AccountService;
 import com.example.doctorapplication.utils.API;
+import com.example.doctorapplication.utils.PreferenceUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,6 +53,7 @@ public class PasswordActivity extends AppCompatActivity {
                 }
 
                 Account account = new Account(receivedPhoneNumber, password, true);
+                register(account);
                 account.setPhoneNumber(receivedPhoneNumber);
                 account.setPassword(password);
                 account.setRole(true);
@@ -70,6 +72,8 @@ public class PasswordActivity extends AppCompatActivity {
             public void onResponse(Call<Account> call, Response<Account> response) {
                 try {
                     if (response.isSuccessful()) {
+                        //save account object to get doctor information
+                        PreferenceUtils.saveUserInfo(response.body());
                         Toast.makeText(PasswordActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(PasswordActivity.this, MainActivity.class);
                         startActivity(intent);

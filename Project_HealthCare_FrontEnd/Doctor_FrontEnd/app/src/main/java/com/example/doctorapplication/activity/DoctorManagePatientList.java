@@ -45,7 +45,13 @@ public class DoctorManagePatientList extends AppCompatActivity {
 
         optionsMenu = findViewById(R.id.optionsMenu);
         listView = findViewById(R.id.listofPatients);
-
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         optionsMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

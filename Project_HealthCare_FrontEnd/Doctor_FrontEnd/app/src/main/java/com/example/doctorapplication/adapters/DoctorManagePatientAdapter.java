@@ -2,7 +2,6 @@ package com.example.doctorapplication.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.example.doctorapplication.R;
 import com.example.doctorapplication.activity.PatientDetail;
 import com.example.doctorapplication.model.Patient;
@@ -19,7 +17,6 @@ import com.example.doctorapplication.model.Patient;
 import java.util.ArrayList;
 
 public class DoctorManagePatientAdapter extends ArrayAdapter<Patient> {
-
     private static class ViewHolder {
         TextView PatientName;
         ImageView PatientPicture;
@@ -47,7 +44,6 @@ public class DoctorManagePatientAdapter extends ArrayAdapter<Patient> {
         }
 
         viewHolder.PatientName.setText(patient.getPatientName());
-        // Set patient picture if available
 
         viewHolder.PatientDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +59,6 @@ public class DoctorManagePatientAdapter extends ArrayAdapter<Patient> {
                 }
             }
         });
-
         return convertView;
     }
 }

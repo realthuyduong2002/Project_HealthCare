@@ -35,11 +35,12 @@
 
         <ImageButton
             android:id="@+id/PatientDetail"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:background="@color/white"
             android:contentDescription="Navigate back to patient details"
             android:rotation="180"
+            android:layout_marginEnd="5dp"
             android:src="@drawable/back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

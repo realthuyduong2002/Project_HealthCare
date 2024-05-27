@@ -1,7 +1,10 @@
 package com.example.doctorapplication.utils;
 
+import com.example.doctorapplication.activity.appointment.AppointmentActivity;
 import com.example.doctorapplication.apiClient.RetrofitClient;
 import com.example.doctorapplication.services.AccountService;
+import com.example.doctorapplication.services.AppointmentService;
+import com.example.doctorapplication.services.DoctorService;
 import com.example.doctorapplication.services.PatientService;
 
 public class API {
@@ -20,5 +23,15 @@ public class API {
 
     public static PatientService getPatientService() {
         return null;
+    }
+
+    public static DoctorService getDoctorService()
+    {
+        return RetrofitClient.getClient(API_URL).create(DoctorService.class);
+    }
+
+    public static AppointmentService getAppointmentService()
+    {
+        return RetrofitClient.getClient(API_URL).create(AppointmentService.class);
     }
 }

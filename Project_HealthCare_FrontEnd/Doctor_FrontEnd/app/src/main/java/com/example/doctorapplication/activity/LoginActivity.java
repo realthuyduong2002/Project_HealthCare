@@ -4,8 +4,10 @@ package com.example.doctorapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import com.example.doctorapplication.R;
 import com.example.doctorapplication.model.Account;
 import com.example.doctorapplication.services.AccountService;
 import com.example.doctorapplication.utils.API;
+import com.example.doctorapplication.utils.PreferenceUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +36,14 @@ public class LoginActivity extends AppCompatActivity {
         edtPhoneNumber = findViewById(R.id.edtPhonenumber);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        ImageView imageIcon = findViewById(R.id.imageXIcon);
 
+        imageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         // Set onClickListener for the login button
         btnLogin.setOnClickListener(v -> {
             // Get the phone number and password from EditText fields
@@ -62,6 +72,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Account> call, Response<Account> response) {
                 try {
                     if (response.isSuccessful()) {
+                        //save account object to get doctor information
+                        PreferenceUtils.saveUserInfo(response.body());
                         Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
                         startActivity(intent);
