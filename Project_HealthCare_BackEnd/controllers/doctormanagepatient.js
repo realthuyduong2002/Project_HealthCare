@@ -66,23 +66,27 @@ export const addPatient = async (req, res) => {
   }
 };
 
-//Update a patient
 export const updatePatientById = async (req, res, next) => {
   try {
-    const patientId = req.params.id;
+    const patientId = req.params.PatientID;
     const updateData = req.body;
 
-    const updatePatient = await Patient.findByIdAndUpdate(
+    // Exclude the _id field from the updateData
+    delete updateData._id;
+
+    const updatedPatient = await Patient.findByIdAndUpdate(
       patientId,
       updateData,
       { new: true }
     );
-    if (!updatePatientById) {
+
+    if (!updatedPatient) {
       return res.status(404).json({ error: "Patient not found" });
     }
-    return res.status(200).json(updatePatient);
+
+    return res.status(200).json(updatedPatient);
   } catch (error) {
-    console.error("Error in update Patient: ", error);
+    console.error("Error in updating patient: ", error);
     return res.status(500).json({ error: "Internal server error" });
   }
 };

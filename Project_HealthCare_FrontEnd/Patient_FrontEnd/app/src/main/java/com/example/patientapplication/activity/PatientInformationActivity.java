@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,13 +27,18 @@ public class PatientInformationActivity extends AppCompatActivity {
     Button btnUpdatePatient, btnDeletePatient;
 
     Patient patient;
-    String patientID = "";
+    ImageView ivAppointment;
+    TextView tvAppointment;
+
+    int patientID = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_information);
 
-        patientID = getIntent().getStringExtra("PatientID");
+        patientID = Integer.parseInt(getIntent().getStringExtra("PatientID"));
+        Log.d("PATIENTID", String.valueOf(patientID));
+
         tvFullName = findViewById(R.id.tvFullName);
         tvPhoneNumber = findViewById(R.id.tvPhoneNumber);
         tvDateOfBirth = findViewById(R.id.tvDateOfBirth);
@@ -42,6 +48,7 @@ public class PatientInformationActivity extends AppCompatActivity {
         tvDistrict = findViewById(R.id.tvDistrict);
         tvWard = findViewById(R.id.tvWard);
 
+
         rdMale = findViewById(R.id.rdMale);
         rdFemale = findViewById(R.id.rdFemale);
 
@@ -50,10 +57,27 @@ public class PatientInformationActivity extends AppCompatActivity {
 
         patientDetail();
 
+        ivAppointment = findViewById(R.id.ivAppointment);
+        tvAppointment = findViewById(R.id.tvAppointment);
+        tvAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientInformationActivity.this, AppointmentActivity.class);
+                startActivity(intent);
+            }
+        });
+        ivAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientInformationActivity.this, AppointmentActivity.class);
+                startActivity(intent);
+            }
+        });
         btnUpdatePatient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientInformationActivity.this, UpdatePatientActivity.class);
+                intent.putExtra("PATIENTID", String.valueOf(patientID));
                 startActivity(intent);
             }
         });
@@ -68,7 +92,7 @@ public class PatientInformationActivity extends AppCompatActivity {
 
     private void deleteProfile() {
         PatientService patientService = API.getPatientService();
-        Integer PatientID = getIntent().getIntExtra("PatientID", Integer.parseInt(patientID));
+        int PatientID = patientID;
         Call<Patient> call = patientService.DeletePatientProfile(PatientID);
         call.enqueue(new Callback<Patient>() {
             @Override
@@ -89,7 +113,7 @@ public class PatientInformationActivity extends AppCompatActivity {
 
     private void patientDetail() {
         PatientService patientService = API.getPatientService();
-        Integer PatientID = getIntent().getIntExtra("PatientID", Integer.parseInt(patientID));
+        int PatientID = patientID;
         patientService.GetPatientDetail(PatientID).enqueue(new Callback<Patient>() {
             @Override
             public void onResponse(Call<Patient> call, Response<Patient> response) {

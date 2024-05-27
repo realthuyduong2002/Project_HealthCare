@@ -7,24 +7,29 @@
         android:id="@+id/layoutDoctor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <TextView
             android:id="@+id/DoctorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Doctor name" />
+            android:hint="Doctor name"
+            android:textSize="25dp"/>
 
         <TextView
             android:id="@+id/DoctorID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:visibility="invisible"
             android:hint="Doctor id" />
 
         <Button
             android:id="@+id/btnChoose"
+            android:backgroundTint="#E5B4B4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Choose" />

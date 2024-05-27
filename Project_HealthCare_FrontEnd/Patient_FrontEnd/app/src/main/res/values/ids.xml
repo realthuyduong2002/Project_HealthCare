@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="autoCompleteTextView" type="id" />
+    <item name="atcDate" type="id" />
+    <item name="atcTime" type="id" />
+    <item name="btn_previous" type="id" />
+    <item name="monthYearTv" type="id" />
+    <item name="btn_next" type="id" />
+    <item name="rclCalendar" type="id" />
+    <item name="btnChooseDoctor" type="id" />
+    <item name="btnChooseSpecialty" type="id" />
+    <item name="sympton" type="id" />
+    <item name="btnFinish" type="id" />
+</resources>

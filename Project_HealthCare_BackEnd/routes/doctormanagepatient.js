@@ -11,6 +11,7 @@ const router = express.Router();
 router.get("/doctor/patients", getAllPatient);
 router.get("/doctor/patient/:id", getPatientById);
 router.post("/doctor/patient/addPatient", addPatient);
-router.put("/doctor/patient/updatePatient/:id", updatePatientById);
+router.put("/doctor/patient/updatePatient/:PatientID", updatePatientById);
+//router.post("/doctor/patient/addPatient/:PhoneNumber", addPatient);
 
 export default router;

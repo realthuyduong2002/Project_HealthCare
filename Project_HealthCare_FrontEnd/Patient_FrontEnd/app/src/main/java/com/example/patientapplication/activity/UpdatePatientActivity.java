@@ -25,11 +25,14 @@ public class UpdatePatientActivity extends AppCompatActivity {
     EditText edtPatientName, edtPhoneNumber, edtDateOfBirth, edtEmail, edtCCCD, edtCity, edtDistrict, edtWard;
     RadioButton rdMale, rdFemale;
     Button btnCreateProfile, btnDeletePatient;
-
+    int PatientID = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_patient);
+
+        PatientID =  Integer.parseInt(getIntent().getStringExtra("PATIENTID"));
+        Log.d("PATIENTID", String.valueOf(PatientID));
 
         // Initialize EditText, RadioButton, and Button
         edtPatientName = findViewById(R.id.edtPatientName);
@@ -45,11 +48,8 @@ public class UpdatePatientActivity extends AppCompatActivity {
         btnCreateProfile = findViewById(R.id.btnCreateProfile);
         btnDeletePatient = findViewById(R.id.btnDeletePatient);
 
-        // Get the patient ID passed from the previous activity
-        int patientID = getIntent().getIntExtra("PatientID", 1); // Default value is 1
 
-        // Load patient information
-        loadPatientInformation(patientID);
+        loadPatientInformation(PatientID);
 
         // Set onClickListener for the create profile button
         btnCreateProfile.setOnClickListener(v -> {
@@ -119,8 +119,7 @@ public class UpdatePatientActivity extends AppCompatActivity {
 
     private void updatePatientInformation(Patient patient) {
         PatientService patientService = API.getPatientService();
-        // Assume you have the PatientID stored somewhere, or pass it through intent extras
-        int patientID = 1; // Replace 1 with the actual patient ID
+        int patientID = PatientID;
         Call<Patient> call = patientService.UpdatePatientInformation(patientID, patient);
         call.enqueue(new Callback<Patient>() {
             @Override

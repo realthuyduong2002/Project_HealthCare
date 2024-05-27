@@ -444,7 +444,7 @@
                 android:id="@+id/ivRecord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="45dp"
                 android:src="@drawable/record_icon" />
 
             <TextView
@@ -465,10 +465,11 @@
                 android:id="@+id/ivAppointment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="100dp"
                 android:src="@drawable/appointment_bottom_icon" />
 
             <TextView
+                android:id="@+id/tvAppointment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
@@ -486,7 +487,7 @@
                 android:id="@+id/ivNotification"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="160dp"
+                android:layout_marginLeft="175dp"
                 android:src="@drawable/notification_icon" />
 
             <TextView
@@ -514,7 +515,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="253dp"
                 android:text="User"
                 android:textColor="#80FF0000" />
         </LinearLayout>

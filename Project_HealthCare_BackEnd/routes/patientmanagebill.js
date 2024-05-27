@@ -8,7 +8,7 @@ import {
 const router = express.Router();
 
 router.get("/patient/bills/:PatientID", getAllBill);
-router.get("/patient/bill/:PatientID/:id", getBillByID);
+router.get("/patient/bill/:PatientID", getBillByID);
 router.post("/patient/bill/addBill", addBill);
 
 export default router;

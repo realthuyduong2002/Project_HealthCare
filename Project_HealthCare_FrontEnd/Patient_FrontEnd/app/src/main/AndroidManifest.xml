@@ -26,6 +26,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.UpdatePassword"
+            android:exported="false" />
+        <activity
             android:name=".activity.ListOfPatient"
             android:exported="false" />
         <activity

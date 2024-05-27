@@ -1,7 +1,11 @@
 package com.example.patientapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,8 +26,9 @@ import retrofit2.Response;
 
 public class ListOfPatient extends AppCompatActivity {
 
-    ListView lsPaitent;
-
+    ListView lsPatient;
+    Button btnCreate;
+    LinearLayout bodyLayout;
 
     private ArrayList<Patient> patients = new ArrayList<>();
     private ArrayAdapter<Patient> adapter;
@@ -32,17 +37,18 @@ public class ListOfPatient extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_of_patient);
-        lsPaitent = findViewById(R.id.lsPaitent);
+
+        lsPatient = findViewById(R.id.lsPaitent);
+        btnCreate = findViewById(R.id.btnCreate);
+        bodyLayout = findViewById(R.id.body);
 
         adapter = new ListOfPatientAdapter(this, patients);
-        lsPaitent.setAdapter(adapter);
+        lsPatient.setAdapter(adapter);
 
-        loadPatient();
-
+        loadPatients();
     }
 
-
-    private void loadPatient() {
+    private void loadPatients() {
         PatientService patientService = API.getPatientService();
         Call<List<Patient>> call = patientService.getPatients();
         call.enqueue(new Callback<List<Patient>>() {
@@ -51,6 +57,17 @@ public class ListOfPatient extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     patients.addAll(response.body());
                     adapter.notifyDataSetChanged();
+
+                    if (patients.isEmpty()) {
+                        bodyLayout.setVisibility(View.VISIBLE);
+                        btnCreate.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(ListOfPatient.this, PatientNewInformation.class);
+                                startActivity(intent);
+                            }
+                        });
+                    }
                 } else {
                     Toast.makeText(ListOfPatient.this, "Failed to fetch patients: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
@@ -58,7 +75,7 @@ public class ListOfPatient extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Patient>> call, Throwable t) {
-
+                Toast.makeText(ListOfPatient.this, "Failed to fetch patients: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,8 +1,8 @@
 import Bill from "../models/bill.js";
 import Patient from "../models/patient.js";
-import Appoinment from "../models/appointment.js";
+import Appointment from "../models/appointment.js";
 
-//Get all bill
+// Get all bills for a patient
 export const getAllBill = async (req, res, next) => {
   try {
     const patientId = req.params.PatientID;
@@ -15,42 +15,51 @@ export const getAllBill = async (req, res, next) => {
     const bills = await Bill.find({ PatientID: patientId });
     return res.status(200).json(bills);
   } catch (error) {
-    console.error(error);
+    console.error("Error in getAllBills: ", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
-//Get bill by ID
+// Get a bill by its ID
 export const getBillByID = async (req, res, next) => {
   try {
     const patientId = req.params.PatientID;
-    const billId = req.params.id; // Correct variable name to billId
 
-    const existingPatient = await Patient.findById(patientId);
+    const existingPatient = await Patient.findOne({ _id: patientId });
     if (!existingPatient) {
-      return res.status(404).json({ error: "Patient not found" });
+      return res.status(404).json("Patient not found");
     }
 
-    // Find the bill by PatientID and _id (BillID)
-    const bill = await Bill.findOne({ PatientID: patientId, _id: billId });
-    if (!bill) {
-      return res.status(404).json({ error: "Bill not found for this patient" });
+    const latestBill = await Bill.findOne({
+      PatientID: patientId,
+    }).sort({ _id: -1 });
+
+    if (!latestBill) {
+      return res.status(404).json("No bills found");
     }
 
-    return res.status(200).json(bill);
+    return res.status(200).json(latestBill);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
-//Add new bill
+// Add a new bill
 export const addBill = async (req, res) => {
   try {
-    const { PatientID, AppointmentID, TotalCost, DateCreate } = req.body;
+    const {
+      PatientID,
+      PatientName,
+      AppointmentDate,
+      AppointmentTime,
+      AppointmentID,
+      TotalCost,
+      DateCreate,
+    } = req.body;
 
     const existingPatient = await Patient.findById(PatientID);
-    const existingAppointment = await Appoinment.findById(PrescriptionID);
+    const existingAppointment = await Appointment.findById(AppointmentID);
 
     if (!existingPatient) {
       return res.status(404).json({ error: "Patient not found" });
@@ -61,8 +70,11 @@ export const addBill = async (req, res) => {
 
     const newBill = new Bill({
       PatientID: existingPatient._id,
+      PatientName,
+      AppointmentDate,
+      AppointmentTime,
+      AppointmentID: existingAppointment._id,
       TotalCost,
-      OrdinalNumber: 0,
       DateCreate,
     });
 

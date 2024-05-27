@@ -415,7 +415,7 @@
                         android:layout_height="150dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:src="@drawable/news" />
+                        android:src="@drawable/latest_news" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -427,13 +427,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Despite Surging Demand for Long-Term Care, Providers Struggle to Find Workers"
+                            android:text="What You Can Do to Try to Stay Safe When a Tornado Hits, and Also Well Beforehand"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Despite growing demand for long-term care, the industry struggles with labor shortages, and experts worry about whether there will be enough workers in the future to care for America’s aging population" />
+                            android:text="Experts say planning before a tornado threatens is key for staying safe" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -499,6 +499,7 @@
                 android:src="@drawable/homepage_icon" />
 
             <TextView
+                android:id="@+id/tvHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Home"
@@ -517,7 +518,7 @@
                 android:id="@+id/ivRecord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="45dp"
                 android:src="@drawable/record_icon" />
 
             <TextView
@@ -538,7 +539,7 @@
                 android:id="@+id/ivAppointment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
+                android:layout_marginLeft="100dp"
                 android:src="@drawable/appointment_bottom_icon" />
 
             <TextView
@@ -559,7 +560,7 @@
                 android:id="@+id/ivNotification"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="160dp"
+                android:layout_marginLeft="175dp"
                 android:src="@drawable/notification_icon" />
 
             <TextView
@@ -577,6 +578,7 @@
             android:orientation="vertical">
 
             <ImageView
+
                 android:id="@+id/ivUser"
                 android:layout_width="35dp"
                 android:layout_height="35dp"

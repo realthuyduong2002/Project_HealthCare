@@ -12,41 +12,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.patientapplication.R;
-import com.example.patientapplication.adapters.CalendarAdapter;
 import com.example.patientapplication.adapters.PatientInformationAdapter;
 import com.example.patientapplication.model.Appointment;
 import com.example.patientapplication.model.Patient;
 import com.example.patientapplication.services.AppointmentService;
 import com.example.patientapplication.services.PatientService;
 import com.example.patientapplication.utils.API;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
+import com.google.android.material.datepicker.MaterialDatePicker;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AppointmentActivity extends AppCompatActivity implements CalendarAdapter.OnItemListener {
+public class AppointmentActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_DOCTOR_SELECTION = 1;
     private static final int REQUEST_CODE_SPECIALTY_SELECTION = 2;
 
     private AutoCompleteTextView autoCompleteTextView, atcTime;
+    private TextView tvDate;
     private ArrayList<Patient> patients = new ArrayList<>();
     private ArrayAdapter<Patient> adapter;
     private ArrayAdapter<String> adapteritem;
-    private TextView monthYearTv;
-    private RecyclerView calendarRec;
-    private LocalDate selectedDate;
-    private Button btnChooseDoctor, btnChooseSpecialty, btnFinish;
+    private Button btnChooseDoctor, btnFinish;
     private EditText symptom;
 
     private String[] time = {"07:00:00 - 08:00:00", "08:00:00 - 09:00:00", "09:00:00 - 10:00:00"};
@@ -54,10 +51,11 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
     String PatientID = "";
     String Time = "";
     String Date = "";
-
+String PatientName = "";
     String DoctorID = "";
     String Speacialty = "";
     String Sympton = "";
+    private Patient selectedPatient;
 
 
     @Override
@@ -67,10 +65,8 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
 
         autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
         atcTime = findViewById(R.id.atcTime);
-        monthYearTv = findViewById(R.id.monthYearTv);
-        calendarRec = findViewById(R.id.rclCalendar);
+        tvDate = findViewById(R.id.tvDate);
         btnChooseDoctor = findViewById(R.id.btnChooseDoctor);
-        btnChooseSpecialty = findViewById(R.id.btnChooseSpecialty);
         btnFinish = findViewById(R.id.btnFinish);
         symptom = findViewById(R.id.sympton);
 
@@ -87,64 +83,37 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
             if (patient != null) {
                 Toast.makeText(AppointmentActivity.this, "Patient ID: " + patient.getPatientID() + ", Patient Name: " + patient.getPatientName(), Toast.LENGTH_SHORT).show();
                 PatientID = String.valueOf(patient.getPatientID());
+                PatientName = patient.getPatientName();
             }
         });
 
         atcTime.setOnItemClickListener((adapterView, view, position, id) -> {
             String item = adapterView.getItemAtPosition(position).toString();
-            Toast.makeText(AppointmentActivity.this,  item, Toast.LENGTH_SHORT).show();
+            Toast.makeText(AppointmentActivity.this, item, Toast.LENGTH_SHORT).show();
             Time = item;
         });
 
-        selectedDate = LocalDate.now();
-        setMonthView();
+        tvDate.setOnClickListener(v -> showDatePicker());
 
-        btnChooseDoctor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AppointmentActivity.this, ChooseDoctorMakeAppointmentActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_DOCTOR_SELECTION);
-            }
+        btnChooseDoctor.setOnClickListener(v -> {
+            Intent intent = new Intent(AppointmentActivity.this, ChooseDoctorMakeAppointmentActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_DOCTOR_SELECTION);
         });
 
-
-        btnChooseSpecialty.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AppointmentActivity.this, ChoooseSpecialtyMakeAppointmentActivity.class);
-                startActivity(intent);
-            }
-        });
 
         btnFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Sympton = symptom.getText().toString();
                 Appointment appointment = new Appointment(Integer.parseInt(PatientID), Date, Time, Integer.parseInt(DoctorID), Speacialty, Sympton, "Pending");
+                Log.d("AppointmentActivity", "PatientID: " + PatientID);
+                Log.d("AppointmentActivity", "PatientName: " + PatientName);
+                Log.d("AppointmentActivity", "Date: " + Date);
+                Log.d("AppointmentActivity", "Time: " + Time);
+                Log.d("AppointmentActivity", "DoctorID: " + DoctorID);
+                Log.d("AppointmentActivity", "Specialty: " + Speacialty);
+                Log.d("AppointmentActivity", "Symptom: " + Sympton);
                 createNewAppointment(appointment);
-            }
-        });
-    }
-
-    private void createNewAppointment(Appointment appointment) {
-        AppointmentService appointmentService = API.getAppointmentService();
-        Call<Appointment> call = appointmentService.addNewAppointment(appointment);
-        call.enqueue(new Callback<Appointment>() {
-            @Override
-            public void onResponse(Call<Appointment> call, Response<Appointment> response) {
-                if(response.isSuccessful())
-                {
-                    Toast.makeText(AppointmentActivity.this, "Create appointment successful", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AppointmentActivity.this, Checkout.class);
-                    intent.putExtra("PATIENTID", Integer.parseInt(PatientID));
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Appointment> call, Throwable t) {
-                Log.e("ERROR: ", t.getMessage());
-                Toast.makeText(AppointmentActivity.this, "Create unsuccessful", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -171,55 +140,52 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
         });
     }
 
-    private void setMonthView() {
-        monthYearTv.setText(monthYearFromDate(selectedDate));
-        ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
-        CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 7);
-        calendarRec.setLayoutManager(layoutManager);
-        calendarRec.setAdapter(calendarAdapter);
+
+
+    private void showDatePicker() {
+        CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now());
+
+        MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker();
+        builder.setTitleText("Select a date");
+        builder.setCalendarConstraints(constraintsBuilder.build());
+
+        final MaterialDatePicker<Long> datePicker = builder.build();
+        datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            Date = sdf.format(selection);
+            tvDate.setText(Date);
+        });
     }
 
-    private ArrayList<String> daysInMonthArray(LocalDate date) {
-        ArrayList<String> daysInMonthArray = new ArrayList<>();
-        YearMonth yearMonth = YearMonth.from(date);
-        int daysInMonth = yearMonth.lengthOfMonth();
-        LocalDate firstOfMonth = selectedDate.withDayOfMonth(1);
-        int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
-
-        for (int i = 1; i <= 42; i++) {
-            if (i <= dayOfWeek || i > daysInMonth + dayOfWeek) {
-                daysInMonthArray.add("");
-            } else {
-                daysInMonthArray.add(String.valueOf(i - dayOfWeek));
+    private void createNewAppointment(Appointment appointment) {
+        AppointmentService appointmentService = API.getAppointmentService();
+        Call<Appointment> call = appointmentService.addNewAppointment(appointment);
+        call.enqueue(new Callback<Appointment>() {
+            @Override
+            public void onResponse(Call<Appointment> call, Response<Appointment> response) {
+                if(response.isSuccessful() && response.body() != null) {
+                    Appointment createdAppointment = response.body();
+                    Toast.makeText(AppointmentActivity.this, "Create appointment successful", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(AppointmentActivity.this, Checkout.class);
+                    intent.putExtra("PATIENTID", String.valueOf(PatientID));
+                    intent.putExtra("PATIENTNAME", PatientName);
+                    intent.putExtra("APPOINTMENTDAY", Date);
+                    intent.putExtra("APPOINTMENTTIME", Time);
+                    startActivity(intent);
+                }
             }
-        }
-        return daysInMonthArray;
+
+            @Override
+            public void onFailure(Call<Appointment> call, Throwable t) {
+                Log.e("ERROR: ", t.getMessage());
+                Toast.makeText(AppointmentActivity.this, "Create unsuccessful", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private String monthYearFromDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
-        return date.format(formatter);
-    }
-
-    public void previous(View view) {
-        selectedDate = selectedDate.minusMonths(1);
-        setMonthView();
-    }
-
-    public void next(View view) {
-        selectedDate = selectedDate.plusMonths(1);
-        setMonthView();
-    }
-
-    @Override
-    public void onItemClick(int position, String dayText) {
-        if (!dayText.equals("")) {
-            String message = dayText + " " + monthYearFromDate(selectedDate);
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-            Date = message;
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -231,9 +197,6 @@ public class AppointmentActivity extends AppCompatActivity implements CalendarAd
             Toast.makeText(this, "Selected Doctor ID: " + doctorId + ", Specialty: " + specialty, Toast.LENGTH_SHORT).show();
             DoctorID = String.valueOf(doctorId);
             Speacialty = specialty;
-        } else if (requestCode == REQUEST_CODE_SPECIALTY_SELECTION && resultCode == RESULT_OK && data != null) {
-            String specialty = data.getStringExtra("SPECIALTY");
-            Toast.makeText(this, "Selected Specialty: " + specialty, Toast.LENGTH_SHORT).show();
         }
     }
 }

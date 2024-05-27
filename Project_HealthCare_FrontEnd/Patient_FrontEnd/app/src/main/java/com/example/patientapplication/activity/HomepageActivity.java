@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class HomepageActivity extends AppCompatActivity {
 
-    String url1 = "https://www.geeksforgeeks.org/wp-content/uploads/gfg_200X200-1.png";
-    String url2 = "https://qphs.fs.quoracdn.net/main-qimg-8e203d34a6a56345f86f1a92570557ba.webp";
-    String url3 = "https://bizzbucket.co/wp-content/uploads/2020/08/Life-in-The-Metro-Blog-Title-22.png";
+    String url1 = "https://wiomc.org/wp-content/uploads/2023/04/2bgqjhmw_0iifqf_p8twtq.jpg";
+    String url2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI_jCThVQoY8TwxhxSQ3BTm_aDxXDs9h-5S_99-ad70g&s";
+    String url3 = "https://online.hbs.edu/Style%20Library/api/resize.aspx?imgpath=/online/PublishingImages/blog/health-care-economics.jpg&w=1200&h=630";
 
     ImageView ivAppointment, ivUser;
 

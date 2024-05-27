@@ -22,7 +22,7 @@ public interface PatientService {
     @POST("doctor/patient/addPatient")
     Call<Patient> NewProfile(@Body Patient patient);
 
-    @PUT("patient/{PatientID}")
+    @PUT("doctor/patient/updatePatient/{PatientID}")
     Call<Patient> UpdatePatientInformation(@Path("PatientID") int PatientID, @Body Patient patient);
 
     @DELETE("patient/deletePatient/{PatientID}")

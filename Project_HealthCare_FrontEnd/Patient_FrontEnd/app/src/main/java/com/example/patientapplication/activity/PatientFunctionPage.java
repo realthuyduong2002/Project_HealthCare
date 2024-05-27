@@ -18,19 +18,33 @@ import com.example.patientapplication.R;
 public class PatientFunctionPage extends AppCompatActivity {
 
     LinearLayout viewprofile;
-    TextView tvHome;
-    ImageView ivviewprofile, btnviewprofile, ivHome;
+    TextView tvHome, tvAppointment;
+    ImageView ivviewprofile, btnviewprofile, ivHome,ivAppointment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_function_page);
 
-        tvHome = findViewById(R.id.tvHome);
         ivHome= findViewById(R.id.ivHome);
         viewprofile = findViewById(R.id.viewprofile);
         ivviewprofile = findViewById(R.id.ivviewprofile);
         btnviewprofile = findViewById(R.id.btnviewprofile);
-
+        ivAppointment = findViewById(R.id.ivAppointment);
+        tvAppointment = findViewById(R.id.tvAppointment);
+        tvAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientFunctionPage.this, AppointmentActivity.class);
+                startActivity(intent);
+            }
+        });
+        ivAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientFunctionPage.this, AppointmentActivity.class);
+                startActivity(intent);
+            }
+        });
         viewprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,12 +61,6 @@ public class PatientFunctionPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PatientFunctionPage.this, ListOfPatient.class));
-            }
-        });
-        tvHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PatientFunctionPage.this, HomepageActivity.class));
             }
         });
         ivHome.setOnClickListener(new View.OnClickListener() {

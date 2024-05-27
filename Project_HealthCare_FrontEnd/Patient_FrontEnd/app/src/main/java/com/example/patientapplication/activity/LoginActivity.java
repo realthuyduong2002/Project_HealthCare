@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edtPhoneNumber, edtPassword;
     Button btnLogin;
     ImageView btnClose;
-    TextView tvSignup;
+    TextView tvSignup, forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,16 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvSignup = findViewById(R.id.tvSignup);
         btnClose = findViewById(R.id.btnClose);
+        forgotPassword = findViewById(R.id.forgotPassword);
 
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, UpdatePassword.class);
+                intent.putExtra("PhoneNumber", edtPhoneNumber.getText().toString());
+                startActivity(intent);
+            }
+        });
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "Login successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, HomepageActivity.class);
+                        intent.putExtra("PHONENUMBER", edtPhoneNumber.getText().toString());
                         startActivity(intent);
                     } else {
                         if (response.code() == 404) { // Check if the response code is 404 (Not Found)
