@@ -25,7 +25,7 @@ const AppointmentSchema = new mongoose.Schema({
     required: true,
   },
   DoctorID: {
-    type: Number,
+    type: String,
     ref: "doctor",
     required: false,
   },
