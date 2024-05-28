@@ -1,6 +1,21 @@
+import mongoose from "mongoose";
 import Account from "../models/account.js";
+import Doctor from "../models/doctor.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
+// Function to get doctor ID based on specific criteria
+const getDoctorId = async (accountId) => {
+  try {
+    const doctor = await Doctor.findOne({ _id: accountId });
+    if (doctor) {
+      return doctor._id;
+    }
+    return null;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const register = async (req, res, next) => {
   try {
@@ -26,10 +41,35 @@ export const register = async (req, res, next) => {
     });
 
     const savedAccount = await newAccount.save();
+    console.log("accountId:", savedAccount._id);
+
+    let accountId = savedAccount._id;
+    let doctorId = null;
+
+    if (Role) {
+      accountId = accountId;
+
+      const newDoctor = new Doctor({
+        accountId: savedAccount._id,        
+        DoctorName: "Name",
+        Gender: "Male",
+        Email: "email@example.com",
+        Phone: "0987654321",
+        DateOfBirth: "2000-01-01",
+        City: "City",
+        Speciality: "Bone",
+        WorkingDate: new Date(),
+        WorkingTime: "08:00 AM",
+      });
+      
+      const savedDoctor = await newDoctor.save();
+      doctorId = savedDoctor._id;
+    }
 
     res.status(201).json({
       message: "Account has been created",
-      id: savedAccount._id
+      accountId: accountId,
+      doctorId: doctorId,
     });
   } catch (error) {
     next(error);
@@ -41,28 +81,22 @@ export const login = async (req, res, next) => {
     const { PhoneNumber, Password: loginPassword } = req.body;
 
     if (!PhoneNumber || !loginPassword) {
-      return res.status(400).json("PhoneNumber and Password are required");
+      return res.status(400).json({ message: "PhoneNumber and Password are required" });
     }
 
     const account = await Account.findOne({ PhoneNumber });
 
     if (!account) {
-      return res.status(404).json("Account not found");
+      return res.status(404).json({ message: "Account not found" });
     }
 
-    const isCorrectPassword = await bcrypt.compare(
-      loginPassword,
-      account.Password
-    );
+    const isCorrectPassword = await bcrypt.compare(loginPassword, account.Password);
 
     if (!isCorrectPassword) {
-      return res.status(400).json("Wrong password!");
+      return res.status(400).json({ message: "Wrong password!" });
     }
 
-    const token = jwt.sign(
-      { id: account._id, Role: account.Role },
-      process.env.JWT
-    );
+    const token = jwt.sign({ id: account._id, Role: account.Role }, process.env.JWT);
 
     // Log the role of the user
     const role = account.Role === true ? "Admin" : "User";
@@ -70,16 +104,22 @@ export const login = async (req, res, next) => {
 
     const { Password, Role, ...otherDetails } = account._doc;
 
+    // Retrieve doctor ID if exists
+    const doctorId = await getDoctorId(account._id);
+    console.log(`Doctor ID: ${doctorId}`);
+
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
       .json({
         id: account._id,
         details: { ...otherDetails },
+        doctorId: doctorId,
         role,
       });
   } catch (error) {
-    return res.status(500).json("Internal server error", error);
+    console.error("Error during login:", error);
+    return res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
 
@@ -132,7 +172,7 @@ export const changePassword = async (req, res) => {
       .json({
         message: "Update success",
         details: { ...otherDetails },
-        role: updatedAccount.Role === true ? "Admin" : "User", // Use updatedAccount.Role to determine role
+        role: updatedAccount.Role === true ? "Admin" : "User",
       });
   } catch (error) {
     console.log(error);
