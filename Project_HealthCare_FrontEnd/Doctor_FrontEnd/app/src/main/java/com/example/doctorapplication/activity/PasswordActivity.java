@@ -27,6 +27,7 @@ public class PasswordActivity extends AppCompatActivity {
     EditText edtPassword, edtConfirmPassword;
     Button btnRegister;
     private String receivedPhoneNumber;
+    private Button getOtpButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,9 @@ public class PasswordActivity extends AppCompatActivity {
                     Toast.makeText(PasswordActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // Disable the getOtpButton
+                getOtpButton.setEnabled(false);
 
                 Account account = new Account(receivedPhoneNumber, password, true);
                 register(account);

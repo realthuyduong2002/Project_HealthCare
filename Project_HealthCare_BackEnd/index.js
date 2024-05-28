@@ -15,6 +15,7 @@ import patientInformationRoute from "./routes/patientmanagepatient.js";
 import patientHealthRecordRoute from "./routes/patientmanagehealthrecord.js";
 import Authentication from "./routes/Authentication.js";
 import ManageDoctor from "./routes/managedoctor.js";
+import cors from 'cors'; 
 
 const app = express();
 dotenv.config();
@@ -31,6 +32,7 @@ const connect = async () => {
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(cors());
 
 // Routes
 app.use("/api", Authentication);

@@ -9,6 +9,7 @@ const AccountSchema = new mongoose.Schema({
   _id: Number,
   PhoneNumber: {
     type: String,
+    unique: true,
     require: true,
   },
   Password: {
