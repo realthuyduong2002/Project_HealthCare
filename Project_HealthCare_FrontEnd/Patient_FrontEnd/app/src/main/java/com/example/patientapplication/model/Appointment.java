@@ -18,7 +18,7 @@ public class Appointment {
     private String AppointmentTime;
     @SerializedName("DoctorID")
     @Expose
-    private int DoctorID;
+    private String DoctorID;
     @SerializedName("Speciality")
     @Expose
     private String Speciality;
@@ -29,7 +29,7 @@ public class Appointment {
     @Expose
     private String Status;
 
-    public Appointment( int patientID, String appointmentDate, String appointmentTime, int doctorID, String speciality, String symptom, String status) {
+    public Appointment( int patientID, String appointmentDate, String appointmentTime, String doctorID, String speciality, String symptom, String status) {
         PatientID = patientID;
         AppointmentDate = appointmentDate;
         AppointmentTime = appointmentTime;
@@ -78,11 +78,11 @@ public class Appointment {
         AppointmentTime = appointmentTime;
     }
 
-    public int getDoctorID() {
+    public String getDoctorID() {
         return DoctorID;
     }
 
-    public void setDoctorID(int doctorID) {
+    public void setDoctorID(String doctorID) {
         DoctorID = doctorID;
     }
 

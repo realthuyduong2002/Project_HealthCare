@@ -43,7 +43,7 @@ public class DoctorMakeApppointmentAdapter extends ArrayAdapter<Doctor> {
             Button btnChoose = convertView.findViewById(R.id.btnChoose);
 
             doctorNameTextview.setText(doctor.getDoctorName());
-            DoctorID.setText(String.valueOf(doctor.getDoctorID()));
+            DoctorID.setText(doctor.getDoctorID());
             btnChoose.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

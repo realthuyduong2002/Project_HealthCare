@@ -119,8 +119,8 @@ export const getLatestAppointment = async (req, res, next) => {
 
 export const cancelAppointment = async (req, res) => {
   try {
-    const PatientID = req.params.PatientID; // Assume you pass the patient ID in the URL as /patients/:patientId
-    const AppointmentID = req.params.AppointmentID; // Assume you pass the appointment ID in the URL as /appointments/:appointmentId
+    const PatientID = req.params.PatientID;
+    const AppointmentID = req.params.AppointmentID;
 
     // Validate that both IDs are present
     if (!PatientID || !AppointmentID) {
@@ -133,13 +133,16 @@ export const cancelAppointment = async (req, res) => {
     if (!existingPatient) {
       return res.status(404).json({ error: "Patient not found" });
     }
+
     const deleteAppointment = await Appointment.findByIdAndDelete({
       _id: AppointmentID,
     });
     if (!deleteAppointment) {
       return res.status(404).json({ error: "Appointment not found" });
     }
-    return res.status(200).json("Delete successfully");
+
+    // Return a JSON object instead of a plain string
+    return res.status(200).json({ message: "Delete successfully" });
   } catch (error) {
     console.error("Error in cancelAppointment:", error);
     res.status(500).json({ error: "Internal Server Error" });

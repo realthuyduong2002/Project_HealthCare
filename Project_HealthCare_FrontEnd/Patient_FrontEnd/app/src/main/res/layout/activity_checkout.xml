@@ -194,12 +194,28 @@
                 ></TextView>
         </LinearLayout>
 
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/btnPaynow"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Pay now"></Button>
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+            <Button
+                android:id="@+id/btnPaynow"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:backgroundTint="#1fd655"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"
+                android:text="Pay now"></Button>
+            <Button
+                android:id="@+id/btncancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:backgroundTint="#EF5350"
+                android:layout_height="wrap_content"
+                android:text="Cancel"></Button>
+        </LinearLayout>
     </LinearLayout>
 
     <!--Footer-->

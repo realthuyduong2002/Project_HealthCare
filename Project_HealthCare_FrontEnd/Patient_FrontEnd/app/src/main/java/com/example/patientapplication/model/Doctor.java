@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class Doctor {
     @SerializedName("_id")
     @Expose
-    private int DoctorID;
+    private String DoctorID;
     @SerializedName("DoctorName")
     @Expose
     private String DoctorName;
@@ -29,11 +29,11 @@ public class Doctor {
     @Expose
     private String WorkingTime;
 
-    public int getDoctorID() {
+    public String getDoctorID() {
         return DoctorID;
     }
 
-    public void setDoctorID(int doctorID) {
+    public void setDoctorID(String doctorID) {
         DoctorID = doctorID;
     }
 

@@ -20,8 +20,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BillActivity extends AppCompatActivity {
-    int PatientID = 0;
     private static final String TAG = "BillActivity";
+    int PatientID = 0;
     TextView tvBillID, tvPatientID, tvPatientName, tvAppointmentDate, tvAppointmentTime, tvAppointmentID, tvTotalCost, tvDateCreate;
     Button btnGoBack;
 
@@ -30,7 +30,6 @@ public class BillActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill);
 
-        // Find views by their IDs
         tvBillID = findViewById(R.id.tvBillID);
         tvPatientID = findViewById(R.id.tvPatientID);
         tvPatientName = findViewById(R.id.tvPatientName);
@@ -47,28 +46,20 @@ public class BillActivity extends AppCompatActivity {
                 startActivity(new Intent(BillActivity.this, HomepageActivity.class));
             }
         });
-        // Get the intent
         Intent intent = getIntent();
 
-        // Check if the intent contains the "PATIENTID" extra
         if (intent != null && intent.hasExtra("PATIENTID")) {
-            // Retrieve the "PATIENTID" extra
             String patientIDString = intent.getStringExtra("PATIENTID");
 
-            // Check if the patientIDString is not null or empty
             if (patientIDString != null && !patientIDString.isEmpty()) {
-                // Parse the patient ID string to an integer
                 PatientID = Integer.parseInt(patientIDString);
 
-                // Load the latest bill for the patient
                 loadLatestBill();
             } else {
-                // Handle case where "PATIENTID" extra is null or empty
                 Log.e(TAG, "PatientID extra is null or empty");
                 Toast.makeText(this, "PatientID extra is null or empty", Toast.LENGTH_SHORT).show();
             }
         } else {
-            // Handle case where "PATIENTID" extra is not found
             Log.e(TAG, "PatientID extra not found in intent");
             Toast.makeText(this, "PatientID extra not found in intent", Toast.LENGTH_SHORT).show();
         }

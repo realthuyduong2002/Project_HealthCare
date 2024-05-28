@@ -37,7 +37,13 @@ public class AppointmentActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_DOCTOR_SELECTION = 1;
     private static final int REQUEST_CODE_SPECIALTY_SELECTION = 2;
-
+    String PatientID = "";
+    String Time = "";
+    String Date = "";
+    String PatientName = "";
+    String DoctorID = "";
+    String Speacialty = "";
+    String Sympton = "";
     private AutoCompleteTextView autoCompleteTextView, atcTime;
     private TextView tvDate;
     private ArrayList<Patient> patients = new ArrayList<>();
@@ -45,18 +51,7 @@ public class AppointmentActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapteritem;
     private Button btnChooseDoctor, btnFinish;
     private EditText symptom;
-
     private String[] time = {"07:00:00 - 08:00:00", "08:00:00 - 09:00:00", "09:00:00 - 10:00:00"};
-
-    String PatientID = "";
-    String Time = "";
-    String Date = "";
-String PatientName = "";
-    String DoctorID = "";
-    String Speacialty = "";
-    String Sympton = "";
-    private Patient selectedPatient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +100,7 @@ String PatientName = "";
             @Override
             public void onClick(View v) {
                 Sympton = symptom.getText().toString();
-                Appointment appointment = new Appointment(Integer.parseInt(PatientID), Date, Time, Integer.parseInt(DoctorID), Speacialty, Sympton, "Pending");
+                Appointment appointment = new Appointment(Integer.parseInt(PatientID), Date, Time, DoctorID, Speacialty, Sympton, "Pending");
                 Log.d("AppointmentActivity", "PatientID: " + PatientID);
                 Log.d("AppointmentActivity", "PatientName: " + PatientName);
                 Log.d("AppointmentActivity", "Date: " + Date);
@@ -141,7 +136,6 @@ String PatientName = "";
     }
 
 
-
     private void showDatePicker() {
         CalendarConstraints.Builder constraintsBuilder = new CalendarConstraints.Builder()
                 .setValidator(DateValidatorPointForward.now());
@@ -166,7 +160,7 @@ String PatientName = "";
         call.enqueue(new Callback<Appointment>() {
             @Override
             public void onResponse(Call<Appointment> call, Response<Appointment> response) {
-                if(response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
                     Appointment createdAppointment = response.body();
                     Toast.makeText(AppointmentActivity.this, "Create appointment successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AppointmentActivity.this, Checkout.class);
@@ -193,9 +187,9 @@ String PatientName = "";
         Log.d("ActivityResult", "requestCode: " + requestCode + ", resultCode: " + resultCode + ", data: " + data);
         if (requestCode == REQUEST_CODE_DOCTOR_SELECTION && resultCode == RESULT_OK && data != null) {
             String specialty = data.getStringExtra("SPECIALTY");
-            int doctorId = Integer.parseInt(data.getStringExtra("DOCTORID"));
+            String doctorId = data.getStringExtra("DOCTORID");
             Toast.makeText(this, "Selected Doctor ID: " + doctorId + ", Specialty: " + specialty, Toast.LENGTH_SHORT).show();
-            DoctorID = String.valueOf(doctorId);
+            DoctorID = doctorId;
             Speacialty = specialty;
         }
     }
