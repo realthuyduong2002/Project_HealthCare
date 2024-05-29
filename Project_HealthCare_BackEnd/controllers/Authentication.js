@@ -55,7 +55,7 @@ export const register = async (req, res, next) => {
         Gender: "Male",
         Email: "email@example.com",
         Phone: "0987654321",
-        DateOfBirth: "2000-01-01",
+        DateOfBirth: "01/01/2000",
         City: "City",
         Speciality: "Bone",
         WorkingDate: new Date(),

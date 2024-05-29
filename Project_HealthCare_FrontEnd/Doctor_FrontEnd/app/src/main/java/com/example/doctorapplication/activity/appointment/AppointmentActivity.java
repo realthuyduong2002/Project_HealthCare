@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AppointmentActivity extends BaseActivity {
-
     LinearLayout lnBack;
     CalendarView clAppointDate;
     List<Calendar> calendarDays = new ArrayList<>();
@@ -45,7 +43,6 @@ public class AppointmentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment);
 
-
         lnBack = findViewById(R.id.lnBack);
         clAppointDate = findViewById(R.id.clAppointDate);
         lnBack.setOnClickListener(new View.OnClickListener() {
@@ -55,15 +52,14 @@ public class AppointmentActivity extends BaseActivity {
             }
         });
 
-
         clAppointDate.setOnCalendarDayClickListener(new OnCalendarDayClickListener() {
             @Override
             public void onClick(@NonNull CalendarDay calendarDay) {
                 toast(calendarDay.toString());
                 int index = calendarDays.indexOf(calendarDay.getCalendar());
-                if (index > -1){
+                if (index > -1) {
                     Intent intent = new Intent(AppointmentActivity.this, AppointmentResultActivity.class);
-                    @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").format(calendarDays.get(index));
+                    @SuppressLint("SimpleDateFormat") String date = new SimpleDateFormat("dd/MM/yyyy").format(calendarDays.get(index).getTime());
                     intent.putExtra(JSON_DATA, AppUtils.gson().toJson(new AppointmentResult(date, groupAppointmentByDate.get(date))));
                     startActivity(intent);
                 } else {
@@ -72,10 +68,7 @@ public class AppointmentActivity extends BaseActivity {
                 }
             }
         });
-
-
         getAllAppointment();
-
     }
 
     public void getAllAppointment() {
@@ -89,7 +82,7 @@ public class AppointmentActivity extends BaseActivity {
                         dismissLoadingDialog();
                         if (response.isSuccessful()) {
                             List<Appointment> appointments = response.body();
-                            if (appointments != null && !appointments.isEmpty()){
+                            if (appointments != null && !appointments.isEmpty()) {
                                 groupAppointmentByDate = appointments.stream().collect(Collectors.groupingBy(Appointment::getAppointmentDate, Collectors.toList()));
                                 try {
                                     initView();
@@ -112,10 +105,10 @@ public class AppointmentActivity extends BaseActivity {
     @SuppressLint("SimpleDateFormat")
     private void initView() throws ParseException {
         List<String> appointDates = new ArrayList<>(groupAppointmentByDate.keySet());
-        for (String appointDate: appointDates) {
+        for (String appointDate : appointDates) {
             Calendar calendar = Calendar.getInstance();
             if (!AppUtils.isEmpty(appointDate)) {
-                calendar.setTime(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(appointDate));
+                calendar.setTime(new SimpleDateFormat("dd/MM/yyyy").parse(appointDate));
             }
             calendarDays.add(calendar);
         }

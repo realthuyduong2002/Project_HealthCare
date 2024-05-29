@@ -44,4 +44,12 @@ public class Account {
     public String getId() {
         return id;
     }
+
+    public String getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(String doctorId) {
+        this.doctorId = doctorId;
+    }
 }

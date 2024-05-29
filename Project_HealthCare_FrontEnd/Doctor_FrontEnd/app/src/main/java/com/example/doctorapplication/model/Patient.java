@@ -27,7 +27,8 @@ public class Patient implements Parcelable {
     @SerializedName("CitizenIdentification")
     private String citizenIdentification;
 
-    public Patient() {}
+    public Patient() {
+    }
 
     public Patient(int id, String patientName, String phone, String email, String city, String district, String ward, String gender, String dateOfBirth, String citizenIdentification) {
         this.id = id;

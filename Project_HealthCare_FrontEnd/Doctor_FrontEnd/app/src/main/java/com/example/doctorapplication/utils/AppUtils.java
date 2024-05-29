@@ -1,15 +1,11 @@
 package com.example.doctorapplication.utils;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.text.TextUtils;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
 
-import com.example.doctorapplication.App;
 import com.google.gson.Gson;
 
 import java.text.ParseException;
@@ -19,7 +15,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
-
 
 public class AppUtils {
     private static Gson defaultGson;

@@ -24,7 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DoctorPersonalInfoActivity extends BaseActivity {
-
     LinearLayout lnPersonalInformation;
     LinearLayout lnBack;
     TextView tvDoctorName;
@@ -33,7 +32,6 @@ public class DoctorPersonalInfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_personal_info);
-
         //LinearLayout
         lnPersonalInformation = (LinearLayout) findViewById(R.id.lnPersonalInformation);
         lnBack = (LinearLayout) findViewById(R.id.lnBack);
@@ -45,7 +43,6 @@ public class DoctorPersonalInfoActivity extends BaseActivity {
             }
         });
 
-
         //Intent manage patient
         lnPersonalInformation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +51,6 @@ public class DoctorPersonalInfoActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
         doctorDetail();
     }
 
@@ -64,7 +60,7 @@ public class DoctorPersonalInfoActivity extends BaseActivity {
             @Override
             public void run() {
                 Account account = PreferenceUtils.getUserInfo();
-                API.getDoctorService().getDoctorByID(account.getId()).enqueue(new Callback<DoctorInfo>() {
+                API.getDoctorService().getDoctorByID(account.getDoctorId()).enqueue(new Callback<DoctorInfo>() {
                     @Override
                     public void onResponse(Call<DoctorInfo> call, Response<DoctorInfo> response) {
                         dismissLoadingDialog();

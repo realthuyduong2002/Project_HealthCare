@@ -27,9 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DoctorDetailInfoActivity extends BaseActivity {
-
     private static final String TAG = "DoctorDetailInfoActivity";
-
     LinearLayout lnBack, lnEdit;
     TextView tvDoctorName, tvPhone, tvDateOfBirth, tvEmail, tvSpeciality, tvCity, tvWorkingDate, tvWorkingTime;
     RadioButton rbMale, rbFemale;
@@ -74,8 +72,8 @@ public class DoctorDetailInfoActivity extends BaseActivity {
             @Override
             public void run() {
                 Account account = PreferenceUtils.getUserInfo();
-                if (account != null && account.getId() != null) {
-                    String accountId = account.getId();
+                if (account != null && account.getDoctorId() != null) {
+                    String accountId = account.getDoctorId();
                     Log.d(TAG, "Account ID: " + accountId);
 
                     API.getDoctorService().getDoctorByID(accountId).enqueue(new Callback<DoctorInfo>() {

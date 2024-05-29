@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -32,18 +33,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditDoctorInfoActivity extends BaseActivity {
-
     DoctorInfo doctorInfo = null;
-    LinearLayout lnBack, lnSaveEdit;
+    LinearLayout lnBack;
     TextView tvWorkingDate, tvWorkingTime;
     EditText edtDoctorName, edtPhoneNumber, edtDateOfBirth, edtEmail, edtSpeciality, edtCity;
     RadioButton rbMale, rbFemale;
     FrameLayout frWorkingDate, frWorkingTime;
     View viewDateOfBirth;
     Calendar calendar = Calendar.getInstance();
-
     Account account;
-
+    Button btnUpdate;
     String workingTime = "";
 
     @Override
@@ -53,10 +52,7 @@ public class EditDoctorInfoActivity extends BaseActivity {
 
         account = PreferenceUtils.getUserInfo();
 
-        doctorDetail();
-
         lnBack = findViewById(R.id.lnBack);
-        lnSaveEdit = findViewById(R.id.lnSaveEdit);
         edtDoctorName = findViewById(R.id.edtDoctorName);
         edtPhoneNumber = findViewById(R.id.edtPhoneNumber);
         edtDateOfBirth = findViewById(R.id.edtDateOfBirth);
@@ -70,6 +66,7 @@ public class EditDoctorInfoActivity extends BaseActivity {
         viewDateOfBirth = findViewById(R.id.viewDateOfBirth);
         frWorkingDate = findViewById(R.id.frWorkingDate);
         frWorkingTime = findViewById(R.id.frWorkingTime);
+        btnUpdate = findViewById(R.id.buttonUpdate);
 
         lnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,10 +75,10 @@ public class EditDoctorInfoActivity extends BaseActivity {
             }
         });
 
-        lnSaveEdit.setOnClickListener(new View.OnClickListener() {
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                updateDoctorInfo();
             }
         });
 
@@ -108,13 +105,7 @@ public class EditDoctorInfoActivity extends BaseActivity {
                 dialogTimePicker(tvWorkingTime);
             }
         });
-
-        lnSaveEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateDoctorInfo();
-            }
-        });
+        doctorDetail();
     }
 
     public void doctorDetail() {
@@ -122,13 +113,14 @@ public class EditDoctorInfoActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                API.getDoctorService().getDoctorByID(account.getId()).enqueue(new Callback<DoctorInfo>() {
+                API.getDoctorService().getDoctorByID(account.getDoctorId()).enqueue(new Callback<DoctorInfo>() {
                     @Override
                     public void onResponse(Call<DoctorInfo> call, Response<DoctorInfo> response) {
                         dismissLoadingDialog();
                         if (response.isSuccessful()) {
                             doctorInfo = response.body();
-                            initData();
+                            initData(doctorInfo);
+                            Log.d("doctorInfo", doctorInfo.getDoctorName());
                         }
                     }
 
@@ -141,7 +133,7 @@ public class EditDoctorInfoActivity extends BaseActivity {
         }, DELAY_LOAD_DATA);
     }
 
-    private void initData() {
+    private void initData(DoctorInfo doctorInfo) {
         if (doctorInfo != null) {
             edtDoctorName.setText(doctorInfo.getDoctorName());
             edtPhoneNumber.setText(doctorInfo.getPhone());
@@ -152,12 +144,10 @@ public class EditDoctorInfoActivity extends BaseActivity {
                 if (doctorInfo.getGender().equals("Male")) {
                     rbMale.setChecked(true);
                 } else rbFemale.setChecked(true);
-            } else {
-                //none check
             }
             edtCity.setText(doctorInfo.getCity());
             tvWorkingDate.setText(AppUtils.formatDate(doctorInfo.getWorkingDate(), "yyyy-MM-dd", "dd/MM/yyyy"));
-            tvWorkingTime.setText(AppUtils.formatDate(doctorInfo.getWorkingTime(), "hh:mm", "hh:mm a"));
+            tvWorkingTime.setText(AppUtils.formatDate(doctorInfo.getWorkingTime(), "HH:mm", "hh:mm a"));
             workingTime = doctorInfo.getWorkingTime();
         }
     }
@@ -178,15 +168,12 @@ public class EditDoctorInfoActivity extends BaseActivity {
             year[0] = Integer.parseInt(dateArray[2]);
         }
         @SuppressLint("DefaultLocale") DatePickerDialog datePickerDialog = new DatePickerDialog(EditDoctorInfoActivity.this, (view1, yearPicker, monthPicker, dayPicker) -> {
-            //get date int
             day[0] = dayPicker;
             month[0] = monthPicker + 1;
             year[0] = yearPicker;
-            //get date string
             String dayStr = String.format("%02d", day[0]);
             String monthStr = String.format("%02d", month[0]);
             String yearStr = String.format("%d", year[0]);
-            //show to textview
             view.setText(getString(R.string.txt_date_format, dayStr, monthStr, yearStr));
         }, year[0], month[0], day[0]);
         datePickerDialog.show();
@@ -195,24 +182,22 @@ public class EditDoctorInfoActivity extends BaseActivity {
     private void dialogTimePicker(TextView view) {
         final int[] hour = new int[1];
         final int[] minute = new int[1];
-        String dateStr = view.getText().toString().replace("AM", "").replace("PM", "").trim();
-        if (AppUtils.isEmpty(dateStr)) {
+        String timeStr = view.getText().toString().replace("AM", "").replace("PM", "").trim();
+        if (AppUtils.isEmpty(timeStr)) {
             hour[0] = calendar.get(Calendar.HOUR_OF_DAY);
             minute[0] = calendar.get(Calendar.MINUTE);
         } else {
-            String[] timeArray = dateStr.split(":");
+            String[] timeArray = timeStr.split(":");
             hour[0] = Integer.parseInt(timeArray[0]);
             minute[0] = Integer.parseInt(timeArray[1]);
         }
         @SuppressLint("DefaultLocale") TimePickerDialog timePickerDialog = new TimePickerDialog(EditDoctorInfoActivity.this, (view1, hourOfDay, minuteOfDay) -> {
             hour[0] = hourOfDay;
             minute[0] = minuteOfDay;
-            //get date string
             String hourStr = String.format("%02d", hour[0]);
             String minuteStr = String.format("%02d", minute[0]);
-            //show to textview
             workingTime = getString(R.string.txt_time_format, hourStr, minuteStr);
-            view.setText(AppUtils.formatDate(workingTime, "hh:mm", "hh:mm a"));
+            view.setText(AppUtils.formatDate(workingTime, "HH:mm", "hh:mm a"));
         }, hour[0], minute[0], true);
         timePickerDialog.show();
     }
@@ -226,38 +211,38 @@ public class EditDoctorInfoActivity extends BaseActivity {
         String gender = "";
         if (rbMale.isChecked()) {
             gender = "Male";
-        } else if (rbFemale.isChecked()){
+        } else if (rbFemale.isChecked()) {
             gender = "Female";
         }
         String city = edtCity.getText().toString().trim();
         String workingDate = tvWorkingDate.getText().toString().trim();
 
-        if (doctorName.isEmpty()){
+        if (doctorName.isEmpty()) {
             Toast.makeText(EditDoctorInfoActivity.this, "Doctor's name is not empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (phoneNumber.isEmpty()){
+        if (phoneNumber.isEmpty()) {
             Toast.makeText(EditDoctorInfoActivity.this, "Phone number is not empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (dateOfBirth.isEmpty()){
+        if (dateOfBirth.isEmpty()) {
             Toast.makeText(EditDoctorInfoActivity.this, "Date of birth is not empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (email.isEmpty()){
+        if (email.isEmpty()) {
             Toast.makeText(EditDoctorInfoActivity.this, "Email is not empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (specialty.isEmpty()){
+        if (specialty.isEmpty()) {
             Toast.makeText(EditDoctorInfoActivity.this, "Specialty is not empty!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (gender.isEmpty()){
+        if (gender.isEmpty()) {
             Toast.makeText(EditDoctorInfoActivity.this, "Gender is not empty!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -269,16 +254,15 @@ public class EditDoctorInfoActivity extends BaseActivity {
         doctorInfo.setSpeciality(specialty);
         doctorInfo.setGender(gender);
         doctorInfo.setCity(city);
-        doctorInfo.setWorkingDate(AppUtils.formatDate(workingDate, "dd/MM/yyyy","yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+        doctorInfo.setWorkingDate(AppUtils.formatDate(workingDate, "dd/MM/yyyy", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         doctorInfo.setWorkingTime(workingTime + ":00");
 
-        API.getDoctorService().updateDoctor(account.getId(), doctorInfo).enqueue(new Callback<DoctorInfo>() {
+        API.getDoctorService().updateDoctor(account.getDoctorId(), doctorInfo).enqueue(new Callback<DoctorInfo>() {
             @Override
             public void onResponse(Call<DoctorInfo> call, Response<DoctorInfo> response) {
                 dismissLoadingDialog();
                 if (response.isSuccessful()) {
                     Toast.makeText(EditDoctorInfoActivity.this, "Update doctor's information successfully", Toast.LENGTH_SHORT).show();
-                    //RELOAD DOCTOR INFOR
                     EventBus.getDefault().post(new MessageEvent(MessageEvent.UPDATE_DOCTOR_INFO));
                     finish();
                 } else {
@@ -294,5 +278,4 @@ public class EditDoctorInfoActivity extends BaseActivity {
             }
         });
     }
-
 }

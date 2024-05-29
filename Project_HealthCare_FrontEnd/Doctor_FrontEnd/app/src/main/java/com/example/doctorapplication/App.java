@@ -1,9 +1,9 @@
 package com.example.doctorapplication;
+
 import android.app.Application;
 import android.content.Context;
 
 import com.example.doctorapplication.utils.PreferenceUtils;
-
 
 public class App extends Application {
     private static App instance = null;
