@@ -49,8 +49,9 @@ public class Checkout extends AppCompatActivity {
     String AppointmentTime = "";
     int AppointmentID = 0;
     String DateCreate = "";
+    String DoctorName = "";
     TextView tvAppointmentID, tvPatientID, tvAppointmentDate,
-            tvAppointmentTime, tvSpeciality, tvSymptom;
+            tvAppointmentTime, tvSpeciality, tvSymptom, tvDoctorName;
     private Button btnPaynow, btncancel;
     private PaymentSheet paymentSheet;
     private String customerID;
@@ -67,11 +68,13 @@ public class Checkout extends AppCompatActivity {
         TotalCost = 5.86F;
         LocalDate currentDate = LocalDate.now();
         DateCreate = String.valueOf(currentDate);
+        DoctorName = getIntent().getStringExtra("DOCTORNAME");
 
         Log.d(TAG, "PatientID: " + PatientID);
         Log.d(TAG, "PatientName: " + PatientName);
         Log.d(TAG, "AppointmentDate: " + AppointmentDate);
         Log.d(TAG, "AppointmentTime: " + AppointmentTime);
+        Log.d(TAG, "Doctor: " + DoctorName);
         Log.d(TAG, "DateCreate: " + DateCreate);
 
 
@@ -93,6 +96,7 @@ public class Checkout extends AppCompatActivity {
         tvAppointmentTime = findViewById(R.id.tvAppointmentTime);
         tvSpeciality = findViewById(R.id.tvSpeciality);
         tvSymptom = findViewById(R.id.tvSymptom);
+        tvDoctorName = findViewById(R.id.tvDoctorName);
 
         createCustomer();
         loadLatestAppointment();
@@ -159,6 +163,7 @@ public class Checkout extends AppCompatActivity {
                         tvPatientID.setText(String.valueOf(latestAppointment.getPatientID()));
                         tvAppointmentDate.setText(latestAppointment.getAppointmentDate());
                         tvAppointmentTime.setText(latestAppointment.getAppointmentTime());
+                        tvDoctorName.setText(latestAppointment.getDoctorName());
                         tvSpeciality.setText(latestAppointment.getSpeciality());
                         tvSymptom.setText(latestAppointment.getSymptom());
                     } else {

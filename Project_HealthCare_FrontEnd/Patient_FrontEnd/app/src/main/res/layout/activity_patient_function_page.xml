@@ -5,7 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#80FFFFFF"
     tools:context=".activity.PatientFunctionPage">
+
     <!--Header-->
     <LinearLayout
         android:id="@+id/header"
@@ -97,6 +99,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -110,8 +115,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Patient Information"></TextView>
+                        android:text="Patient Information"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:id="@+id/btnviewprofile"
@@ -126,7 +133,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -137,9 +147,10 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Health Record"></TextView>
+                        android:text="Health Record"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"
@@ -172,6 +183,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -183,8 +198,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Change Password"></TextView>
+                        android:text="Change Password"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"
@@ -198,7 +215,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -210,8 +230,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Language"></TextView>
+                        android:text="Language"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"
@@ -225,7 +247,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -237,8 +262,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Security"></TextView>
+                        android:text="Security"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"
@@ -271,6 +298,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -282,8 +312,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Terms of use"></TextView>
+                        android:text="Terms of use"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"
@@ -297,7 +329,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -309,8 +344,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Privacy Policy"></TextView>
+                        android:text="Privacy Policy"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"
@@ -335,6 +372,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -346,8 +386,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Share app"></TextView>
+                        android:text="Share app"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"
@@ -374,6 +416,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="#33D9D9D9"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -385,8 +430,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:text="Log out"></TextView>
+                        android:text="Log out"
+                        android:textSize="18dp"></TextView>
 
                     <ImageView
                         android:layout_width="25dp"

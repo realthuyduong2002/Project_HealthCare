@@ -51,6 +51,7 @@ export const addAppointment = async (req, res) => {
       AppointmentDate,
       AppointmentTime,
       DoctorID,
+      DoctorName,
       Speciality,
       Symptom,
     } = req.body;
@@ -77,6 +78,7 @@ export const addAppointment = async (req, res) => {
       AppointmentDate,
       AppointmentTime,
       DoctorID: existingDoctor._id,
+      DoctorName,
       Speciality,
       Symptom,
     });

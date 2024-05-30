@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:paddingLeft="5dp"
-            android:text="Create password"
+            android:text="Login"
             android:textSize="25dp"
             android:textStyle="bold"></TextView>
 

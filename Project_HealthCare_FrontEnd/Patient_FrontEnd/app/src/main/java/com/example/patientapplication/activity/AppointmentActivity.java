@@ -42,6 +42,7 @@ public class AppointmentActivity extends AppCompatActivity {
     String Date = "";
     String PatientName = "";
     String DoctorID = "";
+    String DoctorName = "";
     String Speacialty = "";
     String Sympton = "";
     private AutoCompleteTextView autoCompleteTextView, atcTime;
@@ -100,7 +101,7 @@ public class AppointmentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Sympton = symptom.getText().toString();
-                Appointment appointment = new Appointment(Integer.parseInt(PatientID), Date, Time, DoctorID, Speacialty, Sympton, "Pending");
+                Appointment appointment = new Appointment(Integer.parseInt(PatientID), Date, Time, DoctorID, DoctorName, Speacialty, Sympton, "Pending");
                 Log.d("AppointmentActivity", "PatientID: " + PatientID);
                 Log.d("AppointmentActivity", "PatientName: " + PatientName);
                 Log.d("AppointmentActivity", "Date: " + Date);
@@ -166,6 +167,7 @@ public class AppointmentActivity extends AppCompatActivity {
                     Intent intent = new Intent(AppointmentActivity.this, Checkout.class);
                     intent.putExtra("PATIENTID", String.valueOf(PatientID));
                     intent.putExtra("PATIENTNAME", PatientName);
+                    intent.putExtra("DOCTORNAME", DoctorName);
                     intent.putExtra("APPOINTMENTDAY", Date);
                     intent.putExtra("APPOINTMENTTIME", Time);
                     startActivity(intent);
@@ -188,9 +190,11 @@ public class AppointmentActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_DOCTOR_SELECTION && resultCode == RESULT_OK && data != null) {
             String specialty = data.getStringExtra("SPECIALTY");
             String doctorId = data.getStringExtra("DOCTORID");
+            String doctorName = data.getStringExtra("DOCTORNAME");
             Toast.makeText(this, "Selected Doctor ID: " + doctorId + ", Specialty: " + specialty, Toast.LENGTH_SHORT).show();
             DoctorID = doctorId;
             Speacialty = specialty;
+            DoctorName = doctorName;
         }
     }
 }
