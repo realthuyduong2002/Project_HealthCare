@@ -1,6 +1,5 @@
 package com.example.doctorapplication.activity.appointment;
 
-import static com.example.doctorapplication.utils.base.BaseActivity.JSON_DATA;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,22 +7,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.doctorapplication.R;
-import com.example.doctorapplication.activity.doctor.DoctorDetailInfoActivity;
-import com.example.doctorapplication.activity.doctor.EditDoctorInfoActivity;
 import com.example.doctorapplication.model.Appointment;
-import com.example.doctorapplication.model.Patient;
-import com.example.doctorapplication.services.PatientService;
-import com.example.doctorapplication.utils.API;
 import com.example.doctorapplication.utils.AppUtils;
 import com.example.doctorapplication.utils.base.BaseActivity;
 import com.google.gson.Gson;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AppointmentDetailActivity extends BaseActivity {
     LinearLayout lnBack;
@@ -52,7 +40,6 @@ public class AppointmentDetailActivity extends BaseActivity {
                 onBackPressed();
             }
         });
-
         initData();
         initView();
     }
@@ -68,7 +55,7 @@ public class AppointmentDetailActivity extends BaseActivity {
 
     }
 
-    private void initView(){
+    private void initView() {
         if (appointment == null) return;
         tvAppointId.setText(appointment.getAppointmentID());
         tvPatientId.setText(appointment.getPatientID());
@@ -76,10 +63,9 @@ public class AppointmentDetailActivity extends BaseActivity {
         tvDoctorId.setText(appointment.getDoctorID());
         tvSpeciality.setText(appointment.getSpeciality());
         tvDoctorName.setText(appointment.getDoctorName());
-        tvAppointmentDate.setText(AppUtils.formatDate(appointment.getAppointmentDate(), "yyyy-MM-dd", "MMMM DD yyyy") );
+        tvAppointmentDate.setText(AppUtils.formatDate(appointment.getAppointmentDate(), "yyyy-MM-dd", "MMMM DD yyyy"));
         tvAppointmentTime.setText(AppUtils.formatDate(appointment.getAppointmentTime(), "hh:mm", "hh:mm a"));
         tvPaymentMethod.setText(appointment.getPaymentMethod());
         tvSymptom.setText(appointment.getSymptom());
     }
-
 }

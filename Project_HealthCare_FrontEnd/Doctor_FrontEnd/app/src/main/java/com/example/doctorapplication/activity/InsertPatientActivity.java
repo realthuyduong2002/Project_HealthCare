@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +24,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class InsertPatientActivity extends AppCompatActivity {
-
     EditText editTextName, editTextDateOfBirth, editTextCity, editTextWard, editTextDistrict, editTextPhoneNumber;
     RadioButton maleRadioButton, femaleRadioButton;
     Button buttonCreate;
@@ -105,6 +103,7 @@ public class InsertPatientActivity extends AppCompatActivity {
 
     private class AddPatientTask extends AsyncTask<Patient, Void, Boolean> {
         private Patient[] patients;
+
         @Override
         protected Boolean doInBackground(Patient... patients) {
             try {

@@ -52,16 +52,10 @@ public class PasswordActivity extends AppCompatActivity {
                     Toast.makeText(PasswordActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // Disable the getOtpButton
-                getOtpButton.setEnabled(false);
-
                 Account account = new Account(receivedPhoneNumber, password, true);
-                register(account);
                 account.setPhoneNumber(receivedPhoneNumber);
                 account.setPassword(password);
                 account.setRole(true);
-
                 register(account);
             }
         });

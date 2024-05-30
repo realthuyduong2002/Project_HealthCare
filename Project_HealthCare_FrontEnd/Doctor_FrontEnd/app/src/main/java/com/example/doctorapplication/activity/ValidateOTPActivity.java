@@ -12,9 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doctorapplication.R;
 
-
 public class ValidateOTPActivity extends AppCompatActivity {
-
     EditText edtValidateOTP;
     Button btnValidateOTP;
     String confirmOTP = "";

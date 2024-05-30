@@ -6,11 +6,9 @@ import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +19,6 @@ import com.example.doctorapplication.model.Patient;
 import com.example.doctorapplication.services.PatientService;
 import com.example.doctorapplication.utils.API;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DoctorManagePatientList extends AppCompatActivity {
-
     private static final int INSERT_PATIENT_REQUEST_CODE = 1;
-
     ImageView optionsMenu;
     ListView listView;
     DoctorManagePatientAdapter adapter;
@@ -70,12 +65,10 @@ public class DoctorManagePatientList extends AppCompatActivity {
                 } else {
                     Log.e("DoctorManagePatientList", "selectedPatient is null");
                 }
-            }
-            else {
+            } else {
                 Log.e("DoctorManagePatientList", "adapter is null");
             }
         });
-
     }
 
     private void patientList() {
@@ -119,7 +112,7 @@ public class DoctorManagePatientList extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.menu_insert) {
-                    // Chuyển sang InsertPatientActivity và chờ kết quả trả về
+                    // Switch to InsertPatientActivity and wait for the results to return
                     Intent intent = new Intent(DoctorManagePatientList.this, InsertPatientActivity.class);
                     startActivityForResult(intent, INSERT_PATIENT_REQUEST_CODE);
                     return true;
@@ -133,7 +126,6 @@ public class DoctorManagePatientList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == INSERT_PATIENT_REQUEST_CODE) {
             if (resultCode == RESULT_OK && data != null) {
                 boolean patientAdded = data.getBooleanExtra("patientAdded", false);
@@ -144,4 +136,3 @@ public class DoctorManagePatientList extends AppCompatActivity {
         }
     }
 }
-

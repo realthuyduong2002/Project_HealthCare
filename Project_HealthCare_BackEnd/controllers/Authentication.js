@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
+import Account from "../models/account.js";
+import Doctor from "../models/doctor.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import Doctor from "../models/doctor.js";
-import Account from "../models/account.js";
 
 // Function to get doctor ID based on specific criteria
 const getDoctorId = async (accountId) => {
   try {
-    const doctor = await Doctor.findOne({
-      accountId: mongoose.Types.ObjectId(accountId),
-    });
+    const doctor = await Doctor.findOne({ accountId: accountId });
     if (doctor) {
       return doctor._id;
     }
@@ -45,16 +43,19 @@ export const register = async (req, res, next) => {
     const savedAccount = await newAccount.save();
     console.log("accountId:", savedAccount._id);
 
+    let accountId = savedAccount._id;
     let doctorId = null;
 
-    if (Role === "Doctor") {
+    if (Role) {
+      accountId = accountId;
+
       const newDoctor = new Doctor({
         accountId: savedAccount._id,
         DoctorName: "Name",
         Gender: "Male",
         Email: "email@example.com",
         Phone: "0987654321",
-        DateOfBirth: "2000-01-01",
+        DateOfBirth: "01/01/2000",
         City: "City",
         Speciality: "Bone",
         WorkingDate: new Date(),
@@ -67,7 +68,7 @@ export const register = async (req, res, next) => {
 
     res.status(201).json({
       message: "Account has been created",
-      accountId: savedAccount._id,
+      accountId: accountId,
       doctorId: doctorId,
     });
   } catch (error) {
@@ -80,58 +81,48 @@ export const login = async (req, res, next) => {
     const { PhoneNumber, Password: loginPassword } = req.body;
 
     if (!PhoneNumber || !loginPassword) {
-      return res
-        .status(400)
-        .json({ message: "PhoneNumber and Password are required" });
+      return res.status(400).json({ message: "PhoneNumber and Password are required" });
     }
 
     const account = await Account.findOne({ PhoneNumber });
+    console.log(account);
 
     if (!account) {
       return res.status(404).json({ message: "Account not found" });
     }
 
-    const isCorrectPassword = await bcrypt.compare(
-      loginPassword,
-      account.Password
-    );
+    const isCorrectPassword = await bcrypt.compare(loginPassword, account.Password);
 
     if (!isCorrectPassword) {
       return res.status(400).json({ message: "Wrong password!" });
     }
 
-    const token = jwt.sign(
-      { id: account._id, Role: account.Role },
-      process.env.JWT
-    );
+    const token = jwt.sign({ id: account._id, Role: account.Role }, process.env.JWT);
 
     // Log the role of the user
-    const role = account.Role === "Doctor" ? "Doctor" : "User";
+    const role = account.Role === true ? "Admin" : "User";
     console.log(`Role: ${role}`);
 
-    const { Password, ...otherDetails } = account._doc;
+    const { Password, Role, ...otherDetails } = account._doc;
 
-    // Retrieve doctor ID if the role is "Doctor"
-    let doctorId = null;
-    if (role === "Doctor") {
-      doctorId = await getDoctorId(account._id);
-      console.log(`Doctor ID: ${doctorId}`);
-    }
+    const mDoctorIdString = otherDetails._id + ``;
+
+    // Retrieve doctor ID if exists
+    const doctorId = await getDoctorId(account._id);
+    console.log(`Doctor ID: ${doctorId}`);
 
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
       .json({
-        id: account._id,
-        details: { ...otherDetails },
+        id: account._id + ``,
+        details: { _id: mDoctorIdString },
         doctorId: doctorId,
         role,
       });
   } catch (error) {
     console.error("Error during login:", error);
-    return res
-      .status(500)
-      .json({ message: "Internal server error", error: error.message });
+    return res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
 

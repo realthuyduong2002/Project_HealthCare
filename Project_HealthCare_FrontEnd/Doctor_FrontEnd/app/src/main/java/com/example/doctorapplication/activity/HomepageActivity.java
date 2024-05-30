@@ -14,7 +14,6 @@ import com.example.doctorapplication.activity.appointment.AppointmentActivity;
 import com.example.doctorapplication.activity.doctor.DoctorPersonalInfoActivity;
 
 public class HomepageActivity extends AppCompatActivity {
-
     LinearLayout firstlayoutrow, secondlayoutrow, firstlayoutsecondrow,
             secondlayoutsecondrow, firstlayoutthirdrow, secondlayouthirdtrow;
     ImageButton imageButtonPersonalInformation,

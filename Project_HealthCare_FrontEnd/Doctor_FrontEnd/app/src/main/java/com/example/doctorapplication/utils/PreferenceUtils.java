@@ -7,18 +7,14 @@ import com.example.doctorapplication.App;
 import com.example.doctorapplication.model.Account;
 import com.google.gson.Gson;
 
-
 public class PreferenceUtils {
     private static final String ACCOUNT = "ACCOUNT";
     private static final String IS_LOGIN = "IS_LOGIN";
-
-
     private static SharedPreferences preferences;
 
     public static synchronized void init() {
         preferences = PreferenceManager.getDefaultSharedPreferences(App.getInstance());
     }
-
 
     public static void saveUserInfo(Account userInfo) {
         if (userInfo != null) {
@@ -33,7 +29,4 @@ public class PreferenceUtils {
         if (!userJson.isEmpty()) return new Gson().fromJson(userJson, Account.class);
         return null;
     }
-
-
-
 }

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.WindowManager;
+
 import com.example.doctorapplication.R;
 
 public class ProgressDialog extends Dialog {

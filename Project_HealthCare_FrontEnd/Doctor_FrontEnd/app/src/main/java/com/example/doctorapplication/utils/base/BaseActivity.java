@@ -21,13 +21,10 @@ import com.example.doctorapplication.activity.LoginActivity;
 import com.example.doctorapplication.utils.PreferenceUtils;
 import com.example.doctorapplication.utils.dialog.ProgressDialog;
 
-
 public abstract class BaseActivity extends AppCompatActivity {
     public static final int DELAY_LOG_OUT = 1000;
     public static final int DELAY_LOAD_DATA = 1000;
-
     public static final String JSON_DATA = "JSON_DATA";
-
     protected ProgressDialog progressDialog;
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -42,7 +39,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.color_0D6EFD));
     }
 
-
     public void loadingDialog() {
         dismissLoadingDialog();
         if (progressDialog != null && !progressDialog.isShowing()) {
@@ -56,11 +52,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-
     public void toast(String content) {
         Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
     }
-
 
     public void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -78,7 +72,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
     }
-
 
     public void logout() {
         loadingDialog();

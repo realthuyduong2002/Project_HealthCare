@@ -40,7 +40,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         return holder;
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull AppointmentAdapter.ViewHolder holder, int position) {
         Appointment appointment = appointments.get(position);

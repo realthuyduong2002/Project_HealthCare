@@ -39,7 +39,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SignupActivity extends AppCompatActivity {
-
     private EditText phoneNumberEditText;
     private static final int PERMISSION_REQUEST_CODE = 101;
     private static final String SMS_SENT_ACTION = "SMS_SENT_ACTION";
@@ -60,7 +59,6 @@ public class SignupActivity extends AppCompatActivity {
                 requestSmsPermission();
             }
         });
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             registerReceiver(sentSmsReceiver, new IntentFilter(SMS_SENT_ACTION), Context.RECEIVER_NOT_EXPORTED);
         }
@@ -90,7 +88,6 @@ public class SignupActivity extends AppCompatActivity {
                     PERMISSION_REQUEST_CODE);
             return;
         }
-
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.PatientDetail">
+    tools:context=".activity.doctor.EditDoctorInfoActivity">
 
     <LinearLayout
         android:id="@+id/informationLayout"
@@ -121,19 +121,20 @@
                         android:drawablePadding="10dp"
                         android:enabled="false"
                         android:focusable="false"
-                        android:textColor="@color/black"
                         android:hint="Date of birth *"
                         android:importantForAutofill="no"
                         android:inputType="textPhonetic"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:singleLine="true"
+                        android:textColor="@color/black"
                         android:textSize="15sp"
                         tools:ignore="HardcodedText,TextFields" />
+
                     <View
                         android:id="@+id/viewDateOfBirth"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
                 </FrameLayout>
 
 
@@ -364,10 +365,18 @@
                         android:src="@drawable/img_down" />
 
                 </FrameLayout>
-
             </LinearLayout>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
+            <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#2F326A"
+                android:text="Update" />
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
